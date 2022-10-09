@@ -34,7 +34,6 @@ class ViewController: UIViewController {
     
     
     private func requestTimeTable(group: Group?, teacher: Teacher?, building: Building?, room: Room? ) {
-        
         let link = "\(Constants.baseURL)?g=\(group?.id ?? "")&p=\(teacher?.id ?? "")&b=\(building?.id ?? "")&r=\(room?.id ?? "")"
         var request = URLRequest(url: URL(string: link)!)
         request.allHTTPHeaderFields = ["authToken": "nil"]
@@ -42,6 +41,8 @@ class ViewController: UIViewController {
         let _ = URLSession.shared.dataTask(with: request) {data, response, error in
             if let data = data {
                 do {
+                    var week = Week()
+                    var day = Day()
                     var html = String(data: data, encoding: .utf8) ?? ""
                     // разбиение дней по тегу <h3>
                     let dayTag = "day"
@@ -49,33 +50,50 @@ class ViewController: UIViewController {
                     html = html.replacingOccurrences(of: "<h3>", with: "</\(dayTag)><h3>")
                     html = html.replacingOccurrences(of: "</h3>", with: "</h3><\(dayTag)>")
                     html = html.replaceFirst(of: "</\(dayTag)>", with: "")
-//                    html = html.replaceLast(of: "</div></div>", with: "</\(dayTag)></div></div>")
                     
                     // разбиение пар и времени по тегу <h4>
-                    html = html.replacingOccurrences(of: "<h4>", with: "</\(timeTag)><h4>")
-                    html = html.replacingOccurrences(of: "</h4>", with: "</h4><\(timeTag)>")
-                    html = html.replaceFirst(of: "</\(timeTag)>", with: "")
-//                    html = html.replaceLast(of: "</div></div>", with: "</\(timeTag)><></div></div>")
-                    
+                    html = html.replacingOccurrences(of: "<h4>", with: "</time><time><h4>")
+                    html = html.replaceFirst(of: "</h4>", with: "")
                     html = html.replaceLast(of: "</div></div>", with: "</\(timeTag)></\(dayTag)></div></div>")
-                    
-//                    print(html)
                     
                     let doc: Document = try SwiftSoup.parse(html)
                     let result = try doc.getElementsByClass("result").first()!
                     // разбиение по дням недели
                     let days = try result.getElementsByTag("\(dayTag)")
                     for day in days{
-                        print("************")
+                        
                         // разбиение по времени пар
                         let times = try day.getElementsByTag("\(timeTag)")
                         for time in times {
-                            print("&&&&&&&&&&&")
+                            let timeStamp = try time.getElementsByTag("h4").first()?.text()
+                            
                             // разбиение по занятием на паре
                             let lessons = try time.getElementsByClass("study")
                             for lesson in lessons {
-                                print("^^^^^^^^^^^")
-                                print(lesson)
+                                
+                                let dnWeek = try lesson.getElementsByClass("dn").first()
+                                let upWeek = try lesson.getElementsByClass("up").first()
+                                var weekType = WeekType.both
+                                switch (dnWeek, upWeek){
+                                case (nil, nil): // оба nil, значит, проводятся в любой тип недели
+                                    weekType = WeekType.both
+                                case (nil, _): // нижняя неделя nil, значит верхняя
+                                    weekType = WeekType.red
+                                case (_, nil): // верхняя неделя nil, значит нижняя
+                                    weekType = WeekType.blue
+                                default:
+                                    fatalError("Switch statement")
+                                }
+                                let pairPlace = try lesson.getElementsByTag("span").first()!.text().components(separatedBy: " – ")
+                                let title = pairPlace[1]
+                                let building = pairPlace[2].components(separatedBy: ",").first
+                                let room = pairPlace[2].components(separatedBy: ". ").last
+                                let groups = try lesson.getElementsByClass("groups").text().components(separatedBy: ";")
+                                let teacher = try lesson.getElementsByClass("preps").first()?.text()
+                                
+                                let lssn = Lesson(title: title , time: timeStamp ?? "", teacher: teacher, groups: groups, building: building ?? "", room: room ?? "", weekType: weekType)
+                                print(lssn)
+                                
                             }
                         }
                     }

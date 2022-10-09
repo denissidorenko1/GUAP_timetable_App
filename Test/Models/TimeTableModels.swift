@@ -10,12 +10,13 @@ import Foundation
 enum WeekType{
     case red
     case blue
+    case both
 }
-
+// Добавить типы занятия: лекции, практики, и тд
 struct Lesson {
     var title: String
-    var number: String
-    var teacher: String
+    var time: String
+    var teacher: String?
     var groups: [String]
     var building: String
     var room: String
@@ -23,9 +24,9 @@ struct Lesson {
 }
 
 struct Day {
-    var lessons: [Lesson]
+    var lessons: [Lesson] = []
 }
 
 struct Week {
-    var days: [Day]
+    var days: [Day] = []
 }
