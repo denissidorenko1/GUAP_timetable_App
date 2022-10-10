@@ -16,7 +16,7 @@ enum WeekType{
 struct Lesson {
     var title: String
     var time: String
-    var teacher: String?
+    var teacher: String? // бывают пары без преподов
     var groups: [String]
     var building: String
     var room: String
@@ -24,6 +24,7 @@ struct Lesson {
 }
 
 struct Day {
+    var dayTitle: String
     var lessons: [Lesson] = []
 }
 

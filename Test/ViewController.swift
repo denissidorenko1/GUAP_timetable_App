@@ -19,41 +19,49 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //requestTimeTable(group: data.groups.groupList.randomElement(), teacher: nil, building: nil, room: nil)
-//        var lol: SelectData? = nil
-//        getSelectData() { data in
-////            print(data.buildings.buildingList.randomElement()!)
-//            lol = data
-//
-//        }
-//        sleep(3)
-//        print(lol?.groups.groupList.randomElement())
+        var selectsData: SelectData? = nil
+        getSelectData() { data in
+            selectsData = data
+        }
+        
+//        let group = selectsData?.groups.groupList.randomElement()
         let group = Group(id: "326", group: "")
-        requestTimeTable(group: group, teacher: nil, building: nil, room: nil)
+        requestTimeTable(group: group, teacher: nil, building: nil, room: nil) { week in
+            print(week)
+        }
     }
     
+    private func printPrettyWeek(week: Week) {
+        print("day count \(week.days.count)")
+        for day in week.days{
+            print("day: \(day.dayTitle)")
+            for lesson in day.lessons{
+                print("*** \(lesson.time), \(lesson.title), \(lesson.weekType)")
+            }
+        }
+    }
     
-    private func requestTimeTable(group: Group?, teacher: Teacher?, building: Building?, room: Room? ) {
+    // TODO: - произвести рефакторинг, переписать на completion, мб тесты сделать, перенести в другой файл
+    private func requestTimeTable(group: Group?, teacher: Teacher?, building: Building?, room: Room?, completion: @escaping (Week)->()) {
+        var weekStruct = Week()
         let link = "\(Constants.baseURL)?g=\(group?.id ?? "")&p=\(teacher?.id ?? "")&b=\(building?.id ?? "")&r=\(room?.id ?? "")"
         var request = URLRequest(url: URL(string: link)!)
         request.allHTTPHeaderFields = ["authToken": "nil"]
         request.httpMethod = "GET"
-        let _ = URLSession.shared.dataTask(with: request) {data, response, error in
+        let _ = URLSession.shared.dataTask(with: request) {data, _, _ in
             if let data = data {
                 do {
-                    var week = Week()
-                    var day = Day()
+                    var dayStruct = Day(dayTitle: "undefined")
+                    var lssn: Lesson?
+                    var dayTitle: String?
                     var html = String(data: data, encoding: .utf8) ?? ""
                     // разбиение дней по тегу <h3>
                     let dayTag = "day"
                     let timeTag = "time"
-                    html = html.replacingOccurrences(of: "<h3>", with: "</\(dayTag)><h3>")
-                    html = html.replacingOccurrences(of: "</h3>", with: "</h3><\(dayTag)>")
+                    html = html.replacingOccurrences(of: "<h3>", with: "</\(dayTag)><\(dayTag)><h3>")
                     html = html.replaceFirst(of: "</\(dayTag)>", with: "")
-                    
                     // разбиение пар и времени по тегу <h4>
-                    html = html.replacingOccurrences(of: "<h4>", with: "</time><time><h4>")
-                    html = html.replaceFirst(of: "</h4>", with: "")
+                    html = html.replacingOccurrences(of: "<h4>", with: "</\(timeTag)><\(timeTag)><h4>")
                     html = html.replaceLast(of: "</div></div>", with: "</\(timeTag)></\(dayTag)></div></div>")
                     
                     let doc: Document = try SwiftSoup.parse(html)
@@ -61,12 +69,11 @@ class ViewController: UIViewController {
                     // разбиение по дням недели
                     let days = try result.getElementsByTag("\(dayTag)")
                     for day in days{
-                        
+                        dayTitle = try day.getElementsByTag("h3").first()?.text()
                         // разбиение по времени пар
                         let times = try day.getElementsByTag("\(timeTag)")
                         for time in times {
                             let timeStamp = try time.getElementsByTag("h4").first()?.text()
-                            
                             // разбиение по занятием на паре
                             let lessons = try time.getElementsByClass("study")
                             for lesson in lessons {
@@ -82,7 +89,7 @@ class ViewController: UIViewController {
                                 case (_, nil): // верхняя неделя nil, значит нижняя
                                     weekType = WeekType.blue
                                 default:
-                                    fatalError("Switch statement")
+                                    fatalError("Switch statement has default case, which is not possible")
                                 }
                                 let pairPlace = try lesson.getElementsByTag("span").first()!.text().components(separatedBy: " – ")
                                 let title = pairPlace[1]
@@ -91,12 +98,15 @@ class ViewController: UIViewController {
                                 let groups = try lesson.getElementsByClass("groups").text().components(separatedBy: ";")
                                 let teacher = try lesson.getElementsByClass("preps").first()?.text()
                                 
-                                let lssn = Lesson(title: title , time: timeStamp ?? "", teacher: teacher, groups: groups, building: building ?? "", room: room ?? "", weekType: weekType)
-                                print(lssn)
-                                
+                                lssn = Lesson(title: title , time: timeStamp ?? "time undefined", teacher: teacher, groups: groups, building: building ?? "building undefined", room: room ?? "room undefined", weekType: weekType)
+                                dayStruct.lessons.append(lssn!)
                             }
                         }
+                        dayStruct.dayTitle = dayTitle ?? "undefined"
+                        weekStruct.days.append(dayStruct)
+                        dayStruct.lessons = []
                     }
+                    completion(weekStruct)
                 } catch Exception.Error(let type, let message) {
                     print(type, message)
                 } catch {
