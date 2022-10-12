@@ -13,7 +13,7 @@ class RequestModule {
     
     
     // TODO: - произвести рефакторинг, переписать на completion, мб тесты сделать, перенести в другой файл
-    public func requestTimeTable(group: Group?, teacher: Teacher?, building: Building?, room: Room?, completion: @escaping (Week)->()) {
+    public func requestTimeTable(group: Group? = nil, teacher: Teacher? = nil, building: Building? = nil, room: Room? = nil, completion: @escaping (Week)->()) {
         var weekStruct = Week()
         let link = "\(Constants.baseURL)?g=\(group?.id ?? "")&p=\(teacher?.id ?? "")&b=\(building?.id ?? "")&r=\(room?.id ?? "")"
         let request = URLRequest(url: URL(string: link)!)
