@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class LessonCell: UITableViewCell{
+//    public var count = 0 
     var startTime = UILabel()
     var endTime = UILabel()
     var lessonNumber = UILabel()
@@ -53,6 +54,8 @@ class LessonCell: UITableViewCell{
         shapeLayer.strokeColor = UIColor.lightGray.cgColor // сделать свой цвет, чтобы при смене темы менялся тоже
         shapeLayer.lineWidth = 3
         shapeLayer.lineCap = .round
+        shapeLayer.backgroundColor = UIColor.red.cgColor
+        shapeLayer.fillColor = UIColor.systemPink.cgColor
         return shapeLayer
     }
     
@@ -90,11 +93,12 @@ class LessonCell: UITableViewCell{
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width - 20, height: 70)
+        contentView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 70)
         contentView.layer.cornerRadius = 15
         addDataToLabels()
         setFontsOfLabels()
         setFramesOfLabels()
+        self.backgroundColor = .clear
     }
     
 }

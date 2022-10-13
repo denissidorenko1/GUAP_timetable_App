@@ -11,11 +11,7 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        let requestModule = RequestModule.shared
-        //        requestModule.requestTimeTable(group: Group(id: "326", group: ""), teacher: nil, building: nil, room: nil) { week in
-        //            print(week)
-        //        }
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemPink
         
         
         let vc1 = UINavigationController(rootViewController: TimeTableView())
