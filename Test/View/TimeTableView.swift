@@ -35,8 +35,6 @@ class TimeTableView: UIViewController {
         view.backgroundColor = .blue
         self.title = "Расписание"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-//        navigationItem.largeTitleDisplayMode = .always
         timeTableTableView.delegate = self
         timeTableTableView.dataSource = self
     }
@@ -67,10 +65,6 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        print(timeTable)
-//        return timeTable?.days.count ?? 0
-        // тут ошибка
-//        tableView.cellForRow(at: IndexPath(row: section, section: 0))?.textLabel?.text = timeTable?.days[section].dayTitle
         return 1
     }
     
@@ -80,25 +74,15 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        cell.textLabel?.text = timeTable?.days[indexPath.row].dayTitle
-//        return cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
-        cell.largeContentTitle = "kek"
-//        cell.textLabel?.text = timeTable?.days[indexPath.section].dayTitle
-//        cell.numberOfSections?(in: cell)
         let pairCount = timeTable?.days[indexPath.section].lessons.count ?? 1
-        print(pairCount)
         cell.count = pairCount
-//        cell.collectionView(LessonTableViewCell().collectionView, numberOfItemsInSection: pairCount)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        guard let size = timeTable?.days[indexPath.section].lessons.count else { return 500} 
-//        print(size)
-//        print(indexPath.section)
+        guard let size = timeTable?.days[indexPath.section].lessons.count else { return 500}
         return CGFloat(size) * SettingsView.cellSize + 10
     }
     

@@ -16,8 +16,6 @@ class LessonTableViewCell: UITableViewCell{
         
 
         layout.itemSize = CGSize(width: CGFloat(UIScreen.main.bounds.width), height: SettingsView.cellSize - 10)
-//        layout.estimatedItemSize = CGSize(width: , height: <#T##Double#>)
-//        layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.isScrollEnabled = false
@@ -42,7 +40,6 @@ class LessonTableViewCell: UITableViewCell{
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
         collectionView.contentInset = .init(top: 10, left: 0, bottom: 10, right: 0)
-//        contentView.frame = CGRect(x: 0, y: 0, width: CGFloat(UIScreen.main.bounds.width), height: SettingsView.cellSize - 10)
 
     }
 
@@ -52,12 +49,11 @@ extension LessonTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .red
+        cell.layer.cornerRadius = 10
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print(section)
-        
         return count
     }
     

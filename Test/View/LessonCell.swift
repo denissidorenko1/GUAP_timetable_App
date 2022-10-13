@@ -16,10 +16,23 @@ class LessonCell: UITableViewCell{
     var subjectName = UILabel()
     var room = UILabel()
     var teacher = UILabel()
+    var groups = UILabel()
     
     static let identifier = "LessonCell"
     
-    func lol() {
+    func setFontsOfLabels() {
+        startTime.font = startTime.font.withSize(16)
+        endTime.font = endTime.font.withSize(16)
+        lessonNumber.font = lessonNumber.font.withSize(20)
+        lessonType.font = lessonType.font.withSize(14)
+        subjectName.font = subjectName.font.withSize(16)
+        room.font = room.font.withSize(14)
+        lessonType.textColor = .orange
+        teacher.font = teacher.font.withSize(14)
+        groups.font = groups.font.withSize(14)
+    }
+    
+    func addDataToLabels() {
         startTime.text = "12:10"
         endTime.text = "13:40"
         lessonNumber.text = "2"
@@ -27,13 +40,25 @@ class LessonCell: UITableViewCell{
         subjectName.text = "Системный анализ"
         room.text = "32-08"
         teacher.text = "Колесникова Светлана Васильевна"
-        
+        groups.text = "4230M, 4232M"
+    }
+    
+    private func drawLine() ->CAShapeLayer{
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 65, y: 8))
+        path.addLine(to: CGPoint(x: 65, y: 62))
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor // сделать свой цвет, чтобы при смене темы менялся тоже
+        shapeLayer.lineWidth = 3
+        shapeLayer.lineCap = .round
+        return shapeLayer
     }
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         contentView.addSubview(startTime)
         contentView.addSubview(endTime)
         contentView.addSubview(lessonNumber)
@@ -41,11 +66,35 @@ class LessonCell: UITableViewCell{
         contentView.addSubview(subjectName)
         contentView.addSubview(room)
         contentView.addSubview(teacher)
-        contentView.backgroundColor = .purple
+        contentView.addSubview(groups)
+        contentView.layer.addSublayer(drawLine())
+        contentView.backgroundColor = .darkGray
+    }
+    
+    // мб переписать на констрейнты?
+    private func setFramesOfLabels(){
+        startTime.frame = CGRect(x: 15, y: 5, width: 55, height: 20)
+        endTime.frame = CGRect(x: 15, y: 45, width: 55, height: 20)
+        lessonNumber.frame = CGRect(x: 30, y: 25, width: 30, height: 20)
+        lessonType.frame = CGRect(x: 75, y: 2, width: contentView.frame.width - 60, height: 20)
+        subjectName.frame = CGRect(x: 75, y: 18, width: contentView.frame.width - 60, height: 20)
+        room.frame = CGRect(x: 75, y: 35, width: 80, height: 20)
+        groups.frame = CGRect(x: 135, y: 35, width: 120, height: 20)
+        teacher.frame = CGRect(x: 75, y: 50, width: contentView.frame.width - 60, height: 20)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width - 20, height: 70)
+        contentView.layer.cornerRadius = 15
+        addDataToLabels()
+        setFontsOfLabels()
+        setFramesOfLabels()
     }
     
 }
