@@ -19,7 +19,7 @@
 		92D41FC328F471CD006F4289 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92D41FC228F471CD006F4289 /* Launch Screen.storyboard */; };
 		92D41FC628F47887006F4289 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FC528F47887006F4289 /* SettingsView.swift */; };
 		92D41FC828F478C9006F4289 /* TimeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FC728F478C9006F4289 /* TimeTableView.swift */; };
-		92D41FCA28F4A567006F4289 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FC928F4A567006F4289 /* LessonTableViewCell.swift */; };
+		92DAE8F128F9579100EE7C27 /* DeadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAE8F028F9579100EE7C27 /* DeadLineView.swift */; };
 		EAEEADD2EDC905E1DB0902F6 /* Pods_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2DE8B370B4E691915C4BFCB /* Pods_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 		92D41FC228F471CD006F4289 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		92D41FC528F47887006F4289 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		92D41FC728F478C9006F4289 /* TimeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableView.swift; sourceTree = "<group>"; };
-		92D41FC928F4A567006F4289 /* LessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewCell.swift; sourceTree = "<group>"; };
+		92DAE8F028F9579100EE7C27 /* DeadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineView.swift; sourceTree = "<group>"; };
 		ABB789604D80FD5CD9777AD0 /* Pods-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.release.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.release.xcconfig"; sourceTree = "<group>"; };
 		E2DE8B370B4E691915C4BFCB /* Pods_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0D0CA2DC0AF10A4C85FB673 /* Pods-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.debug.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,8 +138,8 @@
 				925D068728D7649100121931 /* TabBarViewController.swift */,
 				92D41FC528F47887006F4289 /* SettingsView.swift */,
 				92D41FC728F478C9006F4289 /* TimeTableView.swift */,
-				92D41FC928F4A567006F4289 /* LessonTableViewCell.swift */,
 				9262F09228F7696500A35604 /* LessonCell.swift */,
+				92DAE8F028F9579100EE7C27 /* DeadLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -261,9 +261,9 @@
 				92D41FC128F459D0006F4289 /* StringExtensions.swift in Sources */,
 				92D41FC628F47887006F4289 /* SettingsView.swift in Sources */,
 				925D068828D7649100121931 /* TabBarViewController.swift in Sources */,
-				92D41FCA28F4A567006F4289 /* LessonTableViewCell.swift in Sources */,
 				925D068428D7649100121931 /* AppDelegate.swift in Sources */,
 				9262F09328F7696500A35604 /* LessonCell.swift in Sources */,
+				92DAE8F128F9579100EE7C27 /* DeadLineView.swift in Sources */,
 				925D068628D7649100121931 /* SceneDelegate.swift in Sources */,
 				92D41FB828F05120006F4289 /* SelectQueryModels.swift in Sources */,
 				92D41FBB28F08423006F4289 /* TimeTableModels.swift in Sources */,

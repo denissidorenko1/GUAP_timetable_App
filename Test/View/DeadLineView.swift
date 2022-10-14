@@ -1,19 +1,19 @@
 //
-//  SettingsView.swift
+//  DeadLineView.swift
 //  Test
 //
-//  Created by Denis on 10.10.2022.
+//  Created by Denis on 14.10.2022.
 //
 
 import Foundation
 import UIKit
 
-class SettingsView: UIViewController {
+class DeadLineView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        self.title = "Настройки"
+        self.title = "Дедлайны"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

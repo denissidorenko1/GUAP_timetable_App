@@ -70,14 +70,47 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    
+    
+    // это ужасно, переписать в другой модуль
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        func getLessonType(abbr :String?) -> String{
+            switch abbr{
+            case "ЛР":
+                return "Лабораторная работа"
+            case "ПР":
+                return "Практическая работа"
+            case "Л":
+                return "Лекция"
+            case "КП":
+                return "Курсовая"
+            default:
+                return ""
+            }
+        }
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.identifier, for: indexPath) as? LessonCell else {return UITableViewCell()}
+        cell.room.text = timeTable?.days[indexPath.section].lessons[indexPath.item].room
+        cell.lessonNumber.text = timeTable?.days[indexPath.section].lessons[indexPath.item].lessonNumber
+        cell.lessonType.text = getLessonType(abbr: timeTable?.days[indexPath.section].lessons[indexPath.item].lessonType)
+        cell.teacher.text = timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
+        cell.groups.text = timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: " ")
+        cell.subjectName.text = timeTable?.days[indexPath.section].lessons[indexPath.item].title
+        cell.endTime.text = timeTable?.days[indexPath.section].lessons[indexPath.item].endTime
+        cell.startTime.text = timeTable?.days[indexPath.section].lessons[indexPath.item].startTime
+        switch timeTable?.days[indexPath.section].lessons[indexPath.item].weekType {
+        case .red:
+            cell.lessonNumber.textColor = .red
+        case .blue:
+            cell.lessonNumber.textColor = .blue
+        default:
+            break
+            // ничего не делать, неделя универсальная
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //        guard let size = timeTable?.days[indexPath.section].lessons.count else { return 500}
-        //        return CGFloat(size) * SettingsView.cellSize + 10
         return 80
     }
     

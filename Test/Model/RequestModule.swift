@@ -45,9 +45,29 @@ class RequestModule {
                         let times = try day.getElementsByTag("\(timeTag)")
                         for time in times {
                             let timeStamp = try time.getElementsByTag("h4").first()?.text()
+                            guard let timeStamp = timeStamp else {
+                                return
+                            }
+                            var startTime: String? = nil
+                            var endTime: String? = nil
+                            var lessonNumber: String? = nil
+                            
+                            if timeStamp.contains("–") { // если содержит, значит, существует дата
+                                let leftBracketIndex = timeStamp.firstIndex(of: "(")!
+                                let rightBracketIndex = timeStamp.lastIndex(of: ")")!
+                                var newStr = String(timeStamp[leftBracketIndex..<rightBracketIndex])
+                                newStr = newStr.replacingOccurrences(of: "(", with: "")
+                                startTime = String(newStr.split(separator: "–").first ?? "")
+                                endTime = String(newStr.split(separator: "–").last ?? "")
+                                lessonNumber = String(timeStamp.prefix(1))
+                            }
+
                             // разбиение по занятием на паре
                             let lessons = try time.getElementsByClass("study")
                             for lesson in lessons {
+                                
+                                let lessonType = try lesson.getElementsByTag("b").last()?.text()
+                                
                                 
                                 let dnWeek = try lesson.getElementsByClass("dn").first()
                                 let upWeek = try lesson.getElementsByClass("up").first()
@@ -67,9 +87,8 @@ class RequestModule {
                                 let building = pairPlace[2].components(separatedBy: ",").first
                                 let room = pairPlace[2].components(separatedBy: ". ").last
                                 let groups = try lesson.getElementsByClass("groups").text().components(separatedBy: ";")
-                                let teacher = try lesson.getElementsByClass("preps").first()?.text()
-                                
-                                lssn = Lesson(title: title , time: timeStamp ?? "time undefined", teacher: teacher, groups: groups, building: building ?? "building undefined", room: room ?? "room undefined", weekType: weekType)
+                                let teacher = try lesson.getElementsByClass("preps").first()?.text().replacingOccurrences(of: "Преподаватель: ", with: "")
+                                lssn = Lesson(title: title, startTime: startTime, endTime: endTime, lessonNumber: lessonNumber, teacher: teacher, lessonType: lessonType ?? "", groups: groups, building: building ?? "undef", room: room ?? "undef", weekType: weekType)
                                 dayStruct.lessons.append(lssn!)
                             }
                         }
@@ -89,7 +108,6 @@ class RequestModule {
     }
 
     public func getSelectData(completion: @escaping (SelectData)->()) {
-        // https://guap.ru/rasp/
         var request = URLRequest(url: URL(string: "\(Constants.baseURL)")!)
         request.allHTTPHeaderFields = ["authToken": "nil"]
         request.httpMethod = "GET"
@@ -137,14 +155,5 @@ class RequestModule {
         }.resume()
     }
     
-    public func printPrettyWeek(week: Week) {
-        print("day count \(week.days.count)")
-        for day in week.days{
-            print("day: \(day.dayTitle)")
-            for lesson in day.lessons{
-                print("*** \(lesson.time), \(lesson.title), \(lesson.weekType)")
-            }
-        }
-    }
     
 }

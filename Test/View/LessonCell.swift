@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class LessonCell: UITableViewCell{
-//    public var count = 0 
     var startTime = UILabel()
     var endTime = UILabel()
     var lessonNumber = UILabel()
@@ -33,16 +32,6 @@ class LessonCell: UITableViewCell{
         groups.font = groups.font.withSize(14)
     }
     
-    func addDataToLabels() {
-        startTime.text = "12:10"
-        endTime.text = "13:40"
-        lessonNumber.text = "2"
-        lessonType.text = "Лекция"
-        subjectName.text = "Системный анализ"
-        room.text = "32-08"
-        teacher.text = "Колесникова Светлана Васильевна"
-        groups.text = "4230M, 4232M"
-    }
     
     private func drawLine() ->CAShapeLayer{
         let path = UIBezierPath()
@@ -79,11 +68,11 @@ class LessonCell: UITableViewCell{
         startTime.frame = CGRect(x: 15, y: 5, width: 55, height: 20)
         endTime.frame = CGRect(x: 15, y: 45, width: 55, height: 20)
         lessonNumber.frame = CGRect(x: 30, y: 25, width: 30, height: 20)
-        lessonType.frame = CGRect(x: 75, y: 2, width: contentView.frame.width - 60, height: 20)
-        subjectName.frame = CGRect(x: 75, y: 18, width: contentView.frame.width - 60, height: 20)
+        lessonType.frame = CGRect(x: 75, y: 2, width: contentView.frame.width - 80, height: 20)
+        subjectName.frame = CGRect(x: 75, y: 18, width: contentView.frame.width - 80, height: 20)
         room.frame = CGRect(x: 75, y: 35, width: 80, height: 20)
-        groups.frame = CGRect(x: 135, y: 35, width: 120, height: 20)
-        teacher.frame = CGRect(x: 75, y: 50, width: contentView.frame.width - 60, height: 20)
+        groups.frame = CGRect(x: 135, y: 35, width: 220, height: 20)
+        teacher.frame = CGRect(x: 75, y: 50, width: contentView.frame.width - 80, height: 20)
         
     }
     
@@ -94,7 +83,11 @@ class LessonCell: UITableViewCell{
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 70)
-        contentView.layer.cornerRadius = 15
+        contentView.layer.cornerRadius = 10
+        contentView.layer.shadowColor = UIColor.label.cgColor
+        contentView.layer.shadowRadius = 5
+        contentView.layer.shadowOpacity = 0.35
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
         addDataToLabels()
         setFontsOfLabels()
         setFramesOfLabels()

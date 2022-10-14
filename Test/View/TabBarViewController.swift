@@ -15,8 +15,8 @@ class TabBarViewController: UITabBarController {
         
         
         let vc1 = UINavigationController(rootViewController: TimeTableView())
-        let vc2 = UINavigationController(rootViewController: SettingsView())
-        let vc3 = UINavigationController(rootViewController: UIViewController())
+        let vc2 = UINavigationController(rootViewController: DeadLineView()) 
+        let vc3 = UINavigationController(rootViewController: SettingsView())
         
         vc1.title = "Расписание"
         vc2.title = "Дедлайны"
@@ -26,7 +26,7 @@ class TabBarViewController: UITabBarController {
         vc2.tabBarItem.image = UIImage(systemName: "alarm.fill")
         vc3.tabBarItem.image = UIImage(systemName: "gear")
         setViewControllers([vc1, vc2, vc3], animated: true)
-        
+
         tabBar.tintColor = .label
     }
 }
