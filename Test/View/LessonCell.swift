@@ -88,7 +88,6 @@ class LessonCell: UITableViewCell{
         contentView.layer.shadowRadius = 5
         contentView.layer.shadowOpacity = 0.35
         contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        addDataToLabels()
         setFontsOfLabels()
         setFramesOfLabels()
         self.backgroundColor = .clear
