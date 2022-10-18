@@ -15,7 +15,7 @@ class SettingsView: UIViewController {
     private var groupSettingGroup = UITextField(frame: CGRect(x: UIScreen.main.bounds.width - 120, y: 140, width: 100, height: 50))
     private var groupSettingsData: Group?
     private var picker = UIPickerView()
-    
+    private var GroupToSave: Group?
     
     func setupPicker(){
         let pickerView = UIPickerView()
@@ -23,8 +23,9 @@ class SettingsView: UIViewController {
         groupSettingGroup.inputView = picker
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
         toolBar.sizeToFit()
-        let button = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.done))
-        toolBar.setItems([.flexibleSpace(),button], animated: true)
+        let saveButton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.done))
+        let cancelButton = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
+        toolBar.setItems([cancelButton, .flexibleSpace(),saveButton], animated: true)
         toolBar.isUserInteractionEnabled = true
         groupSettingGroup.inputAccessoryView = toolBar
     }
@@ -33,23 +34,26 @@ class SettingsView: UIViewController {
     override func loadView() {
         super.loadView()
         groupSettingText.text = "Номер группы:"
-        groupSettingGroup.text = "4230M"
+        groupSettingGroup.text = UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "Не выбрана"
         self.view.addSubview(groupSettingText)
         self.view.addSubview(groupSettingGroup)
 
         picker.dataSource = self
         picker.delegate = self
         
-                RequestModule.shared.getSelectData(){[weak self] data in
-                    self?.dataArray = data.groups.groupList
-                }
+        RequestModule.shared.getSelectData(){[weak self] data in
+            self?.dataArray = data.groups.groupList
+        }
     }
     
     @objc func done() {
-        // впилить сюда сохранение в userDefaults и последующую загрузку расписания выбранной группы
+        UserDefaults.standard.set(GroupToSave?.group, forKey: "SavedGroupGroup")
+        UserDefaults.standard.set(GroupToSave?.id, forKey: "SavedGroupId")
         view.endEditing(true)
-        print("button pressed")
-        
+    }
+    
+    @objc func cancel(){
+        view.endEditing(true)
     }
     
     override func viewDidLoad() {
@@ -83,6 +87,7 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(row,component)
         groupSettingGroup.text = dataArray[row].group
+        GroupToSave = dataArray[row]
     }
     
 }

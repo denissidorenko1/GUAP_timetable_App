@@ -10,9 +10,11 @@ import UIKit
 
 class TimeTableView: UIViewController {
     
+    static let fetchedGroup = Group(id: UserDefaults.standard.string(forKey: "SavedGroupId") ?? "",
+                                     group: UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "")
     public var timeTable: Week? = { () -> Week? in
         var wk: Week?
-        RequestModule.shared.requestTimeTable(group: Group(id: "326", group: "")) { data in
+        RequestModule.shared.requestTimeTable(group: fetchedGroup) { data in
             wk = data
         }
         sleep(1)
@@ -24,9 +26,10 @@ class TimeTableView: UIViewController {
         table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier)
         return table
     }()
+
     
-    private func getTimeTable() {
-        RequestModule.shared.requestTimeTable(group: Group(id: "326", group: ""), teacher: nil, building: nil, room: nil) {[weak self] data in
+    public func getTimeTable() {
+        RequestModule.shared.requestTimeTable(group: TimeTableView.fetchedGroup, teacher: nil, building: nil, room: nil) {[weak self] data in
             self?.timeTable = data
         }
     }
@@ -37,7 +40,6 @@ class TimeTableView: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         timeTableTableView.delegate = self
         timeTableTableView.dataSource = self
-        
     }
     
     override func loadView() {
@@ -55,19 +57,32 @@ class TimeTableView: UIViewController {
         timeTableTableView.backgroundColor = .systemBackground
         self.timeTableTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // найти способ перезагрузить данные
+        timeTableTableView.reloadData()
+    }
 }
 
 extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return timeTable?.days.count ?? 1
+        guard let timeTable = timeTable else { return 1}
+        return timeTable.days.count == 0 ? 1 : timeTable.days.count
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return timeTable?.days[section].dayTitle
+        if timeTable?.days.count == 0 {return nil}
+        else{
+            return timeTable?.days[section].dayTitle
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeTable?.days[section].lessons.count ?? 1
+        if timeTable?.days.count == 0 {return 1} else {
+            return timeTable?.days[section].lessons.count ?? 1
+        }
     }
     
     func getLessonType(abbr :String?) -> String{
@@ -89,16 +104,23 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     // это ужасно, переписать в другой модуль
     // стало еще хуже
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let optionalZero: Int? = 0
         switch timeTable{
-        // если расписание не получено или пустое, вернуть пустую ячейку
+        // если расписание не получено (нет сети), вернуть пустую ячейку
         case nil:
             if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCell.identifier, for: indexPath) as? EmptyDataCell {
+                cell.explanation.text = "Похоже, отсутствует подключение к сети"
+                return cell
+            }
+        // если запрос прошел, но ответ пуст, вернуть пустую ячейку
+        case let temp where temp?.days.count == optionalZero:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCell.identifier, for: indexPath) as? EmptyDataCell {
+                cell.explanation.text = "Похоже, группа не выбрана или не существует"
                 return cell
             }
         // по умолчанию возвращаем заполненную ячейку с данными
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.identifier, for: indexPath) as? LessonCell else {
-                        print("Default cell is returned")
                         return UITableViewCell()}
             cell.room.text = timeTable?.days[indexPath.section].lessons[indexPath.item].room
             cell.lessonNumber.text = timeTable?.days[indexPath.section].lessons[indexPath.item].lessonNumber

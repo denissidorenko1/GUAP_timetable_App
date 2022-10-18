@@ -34,6 +34,7 @@ class EmptyDataCell: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(warning)
         contentView.addSubview(explanation)
+        setLabelText()
         contentView.backgroundColor = .darkGray
     }
     
@@ -51,7 +52,6 @@ class EmptyDataCell: UITableViewCell{
         contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
         setFonts()
         setFrames()
-        setLabelText()
         self.backgroundColor = .clear
     }
 }
