@@ -33,4 +33,6 @@ struct Day {
 
 struct Week {
     var days: [Day] = []
+    // отражает текущую неделю расписания, для навигации по расписанию
+    var currentWeekType: WeekType = .both
 }

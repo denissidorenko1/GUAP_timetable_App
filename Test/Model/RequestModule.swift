@@ -37,6 +37,16 @@ class RequestModule {
                     
                     let doc: Document = try SwiftSoup.parse(html)
                     let result = try doc.getElementsByClass("result").first()!
+                    
+                    let thisWeekType = try doc.getElementsByTag("em").first()?.className()
+                    switch thisWeekType {
+                    case "dn":
+                        weekStruct.currentWeekType = .blue
+                    case "up":
+                        weekStruct.currentWeekType = .red
+                    default:
+                        weekStruct.currentWeekType = .both
+                    }
                     // разбиение по дням недели
                     let days = try result.getElementsByTag("\(dayTag)")
                     for day in days{
