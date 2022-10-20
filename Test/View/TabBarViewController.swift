@@ -12,12 +12,14 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
+        let timeTableView = TimeTableView()
+        let deadLineView = DeadLineView()
+        let settingsView = SettingsView()
+        settingsView.responsiveTableView = timeTableView // назначаем вью, которое будем обновлять при изменении настроек
         
-        
-        let vc1 = UINavigationController(rootViewController: TimeTableView())
-        let vc2 = UINavigationController(rootViewController: DeadLineView()) 
-        let vc3 = UINavigationController(rootViewController: SettingsView())
-        
+        let vc1 = UINavigationController(rootViewController: timeTableView)
+        let vc2 = UINavigationController(rootViewController: deadLineView)
+        let vc3 = UINavigationController(rootViewController: settingsView)
         vc1.title = "Расписание"
         vc2.title = "Дедлайны"
         vc3.title = "Настройки"

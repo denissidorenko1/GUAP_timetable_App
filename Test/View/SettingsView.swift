@@ -9,13 +9,14 @@ import Foundation
 import UIKit
 
 class SettingsView: UIViewController {
-        private var dataArray: [Group] = []
-//    private var dataArray = ["4230", "4333", "4555"]
+    private var dataArray: [Group] = []
     private var groupSettingText = UILabel(frame: CGRect(x: 10, y: 140, width: UIScreen.main.bounds.width - 120, height: 50))
     private var groupSettingGroup = UITextField(frame: CGRect(x: UIScreen.main.bounds.width - 120, y: 140, width: 100, height: 50))
     private var groupSettingsData: Group?
     private var picker = UIPickerView()
     private var GroupToSave: Group?
+    
+    weak var responsiveTableView: TimeTableView?
     
     func setupPicker(){
         let pickerView = UIPickerView()
@@ -37,7 +38,7 @@ class SettingsView: UIViewController {
         groupSettingGroup.text = UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "Не выбрана"
         self.view.addSubview(groupSettingText)
         self.view.addSubview(groupSettingGroup)
-
+        
         picker.dataSource = self
         picker.delegate = self
         
@@ -49,6 +50,7 @@ class SettingsView: UIViewController {
     @objc func done() {
         UserDefaults.standard.set(GroupToSave?.group, forKey: "SavedGroupGroup")
         UserDefaults.standard.set(GroupToSave?.id, forKey: "SavedGroupId")
+        self.responsiveTableView?.getTimeTable()
         view.endEditing(true)
     }
     
@@ -60,7 +62,6 @@ class SettingsView: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.title = "Настройки"
-//        groupSettingGroup.inputView = picker
         setupPicker()
         navigationController?.navigationBar.prefersLargeTitles = true
         

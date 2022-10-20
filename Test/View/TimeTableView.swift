@@ -10,27 +10,28 @@ import UIKit
 
 class TimeTableView: UIViewController {
     
-    static let fetchedGroup = Group(id: UserDefaults.standard.string(forKey: "SavedGroupId") ?? "",
-                                     group: UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "")
-    public var timeTable: Week? = { () -> Week? in
-        var wk: Week?
-        RequestModule.shared.requestTimeTable(group: fetchedGroup) { data in
-            wk = data
-        }
-        sleep(1)
-        return wk
-    }()
+    public var timeTable: Week?
+    
     var timeTableTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier) // регистрация пустой ячейки
-        table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier)
+        table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier) // регистрация ячейки с данными
         return table
     }()
-
     
+    // Загрузка группы из UserDefaults
+    private func getGroup() -> Group{
+        return Group(id: UserDefaults.standard.string(forKey: "SavedGroupId") ?? "",
+                     group: UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "")
+    }
+    
+    // загружаем расписание, когда загружено - обновляем таблицу
     public func getTimeTable() {
-        RequestModule.shared.requestTimeTable(group: TimeTableView.fetchedGroup, teacher: nil, building: nil, room: nil) {[weak self] data in
+        RequestModule.shared.requestTimeTable(group: getGroup()) {[weak self] data in
             self?.timeTable = data
+            DispatchQueue.main.async {
+                self?.timeTableTableView.reloadData()
+            }
         }
     }
     
@@ -44,9 +45,7 @@ class TimeTableView: UIViewController {
     
     override func loadView() {
         super.loadView()
-        DispatchQueue.main.async {[weak self] in
-            self?.getTimeTable()
-        }
+        getTimeTable()
         view.addSubview(timeTableTableView)
     }
     
@@ -58,11 +57,6 @@ class TimeTableView: UIViewController {
         self.timeTableTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // найти способ перезагрузить данные
-        timeTableTableView.reloadData()
-    }
 }
 
 extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
@@ -94,9 +88,11 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
         case "Л":
             return "Лекция"
         case "КП":
-            return "Курсовая"
+            return "Курсовой проект"
+        case "КР":
+            return "Курсовая работа"
         default:
-            return ""
+            return "" // есть еще какой-то тип пар, вроде
         }
     }
     
