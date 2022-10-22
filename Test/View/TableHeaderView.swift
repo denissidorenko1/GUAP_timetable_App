@@ -22,8 +22,9 @@ class TableHeaderView: UIView { // переименовать
     }
     
     private func setFrames() {
-        currentDayLabel.frame = CGRect(x: 0, y: self.center.y/2, width: 190, height: 20)
-        currentWeekLabel.frame = CGRect(x: 190, y: self.center.y/2, width: 150, height: 20)
+        // накопление техдолга идет успешно
+        currentDayLabel.frame = CGRect(x: 0, y: self.center.y/2, width: CGFloat(12 * currentDayLabel.text!.count ), height: 20)
+        currentWeekLabel.frame = CGRect(x: currentDayLabel.bounds.maxX, y: self.center.y/2, width: 150, height: 20)
         
     }
     
