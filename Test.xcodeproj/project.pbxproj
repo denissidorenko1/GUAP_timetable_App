@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9229ACB728FB264800874A93 /* EmptyDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACB628FB264800874A93 /* EmptyDataCell.swift */; };
+		9229ACB9290414C800874A93 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACB8290414C800874A93 /* TableHeaderView.swift */; };
 		925D068428D7649100121931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068328D7649100121931 /* AppDelegate.swift */; };
 		925D068628D7649100121931 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068528D7649100121931 /* SceneDelegate.swift */; };
 		925D068828D7649100121931 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068728D7649100121931 /* TabBarViewController.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9229ACB628FB264800874A93 /* EmptyDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataCell.swift; sourceTree = "<group>"; };
+		9229ACB8290414C800874A93 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		925D068028D7649100121931 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		925D068328D7649100121931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		925D068528D7649100121931 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				92D41FC728F478C9006F4289 /* TimeTableView.swift */,
 				9262F09228F7696500A35604 /* LessonCell.swift */,
 				9229ACB628FB264800874A93 /* EmptyDataCell.swift */,
+				9229ACB8290414C800874A93 /* TableHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9229ACB9290414C800874A93 /* TableHeaderView.swift in Sources */,
 				92D41FC128F459D0006F4289 /* StringExtensions.swift in Sources */,
 				92D41FC628F47887006F4289 /* SettingsView.swift in Sources */,
 				925D068828D7649100121931 /* TabBarViewController.swift in Sources */,

@@ -31,8 +31,16 @@ class TimeTableView: UIViewController {
             self?.timeTable = data
             DispatchQueue.main.async {
                 self?.timeTableTableView.reloadData()
+                self?.setHeaderView() // при получении информации настроим хедер, ведь там тип недели
             }
         }
+    }
+    
+    let header = TableHeaderView(frame: CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 50))
+    
+    func setHeaderView(){
+        header.currentWeekType = timeTable?.currentWeekType // передаем тип недели
+        timeTableTableView.tableHeaderView = header
     }
     
     override func viewDidLoad() {
@@ -46,6 +54,7 @@ class TimeTableView: UIViewController {
     override func loadView() {
         super.loadView()
         getTimeTable()
+        setHeaderView()
         view.addSubview(timeTableTableView)
     }
     
@@ -67,7 +76,9 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if timeTable?.days.count == 0 {return nil}
+        // когда данных нет, отправляем ошибку заголовка, чтобы таблица не прыгала при обновлении
+        if timeTable?.days.count == 0 {return "Ошибка запроса"}
+        else if timeTable == nil {return "Ошибка сети" }
         else{
             return timeTable?.days[section].dayTitle
         }
