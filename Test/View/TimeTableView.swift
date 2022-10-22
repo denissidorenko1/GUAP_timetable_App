@@ -133,7 +133,7 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
             cell.lessonNumber.text = timeTable?.days[indexPath.section].lessons[indexPath.item].lessonNumber
             cell.lessonType.text = getLessonType(abbr: timeTable?.days[indexPath.section].lessons[indexPath.item].lessonType)
             cell.teacher.text = timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
-            cell.groups.text = timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: " ")
+            cell.groups.text = timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: ", ")
             cell.subjectName.text = timeTable?.days[indexPath.section].lessons[indexPath.item].title
             cell.endTime.text = timeTable?.days[indexPath.section].lessons[indexPath.item].endTime
             cell.startTime.text = timeTable?.days[indexPath.section].lessons[indexPath.item].startTime
