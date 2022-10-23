@@ -165,7 +165,16 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "Раскрыть") { [weak self] (_, _, completionHandler) in
-            self?.present(LessonModalView(), animated: true, completion: nil)
+            let modalView = LessonModalView()
+            // может, это можно сделать лучше?
+            modalView.room.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].room
+            modalView.lessonType.text =  self?.getLessonType(abbr: self?.timeTable?.days[indexPath.section].lessons[indexPath.item].lessonType)
+            modalView.teacher.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
+            modalView.groups.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: ", ")
+            modalView.subjectName.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].title
+            modalView.building.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].building
+            
+            self?.present(modalView, animated: true, completion: nil)
             completionHandler(true)
         }
         action.backgroundColor = .systemBlue

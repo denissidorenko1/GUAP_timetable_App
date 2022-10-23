@@ -22,12 +22,13 @@ class LessonModalView: UIViewController {
     
     func setLabelText(){
         headerTitle.text = "Подробное расписание"
-        lessonType.text = "Лабораторная работа"
-        subjectName.text = "Прикладная математика"
-        room.text = "52-30"
-        teacher.text = "Богданов Д.В. - доцент, канд. техн. наук, доцент"
-        groups.text = "4230M, 4231M, 4232M"
-        building.text = "Б.Морская 67"
+        teacher.numberOfLines = 0
+        subjectName.numberOfLines = 0
+        groups.numberOfLines = 0
+    }
+    
+    
+    func configureConstraints(){
         
         headerTitle.translatesAutoresizingMaskIntoConstraints = false
         lessonType.translatesAutoresizingMaskIntoConstraints = false
@@ -36,19 +37,6 @@ class LessonModalView: UIViewController {
         teacher.translatesAutoresizingMaskIntoConstraints = false
         groups.translatesAutoresizingMaskIntoConstraints = false
         building.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        headerTitle.backgroundColor = .red
-        lessonType.backgroundColor = .blue
-        subjectName.backgroundColor = .systemPink
-        room.backgroundColor = .cyan
-        teacher.backgroundColor = .brown
-        groups.backgroundColor = .green
-        building.backgroundColor = .purple
-    }
-    
-    
-    func configureConstraints(){
         
         let headerConstraints = [
             headerTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
@@ -67,14 +55,15 @@ class LessonModalView: UIViewController {
             teacher.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             teacher.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
         ]
-        // область здания занимает много места, попробовать поменять приоритеты
+        
         let buildingConstraints = [
             building.topAnchor.constraint(equalTo: teacher.bottomAnchor, constant: 20),
             building.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
         ]
-        
+        // проблема: если здания нет, то аудитория отображается с отступом от несуществующего здания
+        // решение: если текст пуст, отступ 0
         let roomConstraints = [
-            room.leftAnchor.constraint(equalTo: building.rightAnchor, constant: 10),
+            room.leftAnchor.constraint(equalTo: building.rightAnchor, constant: building.text == "" ? 0 : 10),
             room.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             room.centerYAnchor.constraint(equalTo: building.centerYAnchor),
         ]
@@ -90,6 +79,9 @@ class LessonModalView: UIViewController {
             lessonType.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             lessonType.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
         ]
+        
+        // лейбл здания и аудитория стоят на одной высоте, требуется изменить приоритет для верного отображения
+        roomConstraints[0].priority = UILayoutPriority(500)
         
         NSLayoutConstraint.activate(headerConstraints)
         NSLayoutConstraint.activate(subjectConstraints)
@@ -112,6 +104,12 @@ class LessonModalView: UIViewController {
     
     func setLabelFonts(){
         headerTitle.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
+        subjectName.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        building.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        room.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        lessonType.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        teacher.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        groups.font = UIFont.systemFont(ofSize: 18, weight: .regular)
     }
     
     override func loadView() {
