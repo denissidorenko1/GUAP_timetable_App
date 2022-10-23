@@ -163,4 +163,14 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
         return false
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "Раскрыть") { [weak self] (_, _, completionHandler) in
+            self?.present(LessonModalView(), animated: true, completion: nil)
+            completionHandler(true)
+        }
+        action.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    
 }
