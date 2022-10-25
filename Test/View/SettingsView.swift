@@ -48,14 +48,20 @@ class SettingsView: UIViewController {
     }
     
     @objc func done() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
         UserDefaults.standard.set(GroupToSave?.group, forKey: "SavedGroupGroup")
         UserDefaults.standard.set(GroupToSave?.id, forKey: "SavedGroupId")
         self.responsiveTableView?.getTimeTable()
         view.endEditing(true)
+        generator.notificationOccurred(.success)
     }
     
     @objc func cancel(){
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.prepare()
         view.endEditing(true)
+        generator.impactOccurred()
     }
     
     override func viewDidLoad() {
