@@ -21,11 +21,20 @@ class TableHeaderView: UIView { // переименовать
         currentWeekLabel.textColor = currentWeekType == .blue ? .blue : .red
     }
     
-    private func setFrames() {
-        // накопление техдолга идет успешно
-        currentDayLabel.frame = CGRect(x: 0, y: self.center.y/2, width: CGFloat(12 * currentDayLabel.text!.count ), height: 20)
-        currentWeekLabel.frame = CGRect(x: currentDayLabel.bounds.maxX, y: self.center.y/2, width: 150, height: 20)
-        
+    private func setConstraints(){
+        currentWeekLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentDayLabel.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            // вертикаль
+            currentDayLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            currentWeekLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            // горизонталь
+            currentDayLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            currentDayLabel.trailingAnchor.constraint(equalTo: currentWeekLabel.leadingAnchor, constant: -10),
+            currentWeekLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ]
+        constraints.last!.priority = UILayoutPriority(5)
+        NSLayoutConstraint.activate(constraints)
     }
     
     private func setFonts() {
@@ -61,8 +70,8 @@ class TableHeaderView: UIView { // переименовать
         self.addSubview(currentDayLabel)
         self.addSubview(currentWeekLabel)
         setLabelText()
-        setFrames()
         setFonts()
+        setConstraints()
         self.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 50) // дважды устанавливаем frame, сомнительно
         
         
