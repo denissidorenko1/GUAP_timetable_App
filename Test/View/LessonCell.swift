@@ -124,12 +124,11 @@ class LessonCell: UITableViewCell{
         let groupConstraints = [
             groups.leadingAnchor.constraint(equalTo: room.trailingAnchor, constant: 10),
             groups.topAnchor.constraint(equalTo: subjectName.bottomAnchor, constant: 0),
-            // уезжает за ячейку группа, если пара на кафедре вне расписания
             groups.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
         ]
-        groupConstraints[0].priority = UILayoutPriority(700)
-        groupConstraints[2].priority = UILayoutPriority(2)
-        
+        room.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        groups.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
         
         let teacherConstraints = [
             teacher.topAnchor.constraint(equalTo: groups.bottomAnchor),
@@ -138,7 +137,6 @@ class LessonCell: UITableViewCell{
             teacher.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
             teacher.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ]
-        
         
         NSLayoutConstraint.activate(startTimeConstraints)
         NSLayoutConstraint.activate(endTimeConstraints)
