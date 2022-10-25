@@ -167,13 +167,16 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
         let action = UIContextualAction(style: .normal, title: "Раскрыть") { [weak self] (_, _, completionHandler) in
             let modalView = LessonModalView()
             // может, это можно сделать лучше?
-            modalView.room.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].room
-            modalView.lessonType.text =  self?.getLessonType(abbr: self?.timeTable?.days[indexPath.section].lessons[indexPath.item].lessonType)
-            modalView.teacher.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
-            modalView.groups.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: ", ")
-            modalView.subjectName.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].title
-            modalView.building.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].building
-            
+            // если данных нет, то попытка заполнить модальное окно пустыми данными приведет к runtime error
+            if self?.timeTable == nil || self?.timeTable?.days.count == 0 {}
+            else {
+                modalView.room.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].room
+                modalView.lessonType.text =  self?.getLessonType(abbr: self?.timeTable?.days[indexPath.section].lessons[indexPath.item].lessonType)
+                modalView.teacher.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
+                modalView.groups.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].groups.joined(separator: ", ")
+                modalView.subjectName.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].title
+                modalView.building.text = self?.timeTable?.days[indexPath.section].lessons[indexPath.item].building
+            }
             self?.present(modalView, animated: true, completion: nil)
             completionHandler(true)
         }
