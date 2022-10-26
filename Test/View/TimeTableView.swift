@@ -19,15 +19,10 @@ class TimeTableView: UIViewController {
         return table
     }()
     
-    // Загрузка группы из UserDefaults
-    private func getGroup() -> Group{
-        return Group(id: UserDefaults.standard.string(forKey: "SavedGroupId") ?? "",
-                     group: UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "")
-    }
     
     // загружаем расписание, когда загружено - обновляем таблицу
     public func getTimeTable() {
-        RequestModule.shared.requestTimeTable(group: getGroup()) {[weak self] data in
+        RequestModule.shared.requestTimeTable(group: SettingsStorage.shared.getStoredGroup()) {[weak self] data in
             self?.timeTable = data
             DispatchQueue.main.async {
                 self?.timeTableTableView.reloadData()

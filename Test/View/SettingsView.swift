@@ -35,7 +35,7 @@ class SettingsView: UIViewController {
     override func loadView() {
         super.loadView()
         groupSettingText.text = "Номер группы:"
-        groupSettingGroup.text = UserDefaults.standard.string(forKey: "SavedGroupGroup") ?? "Не выбрана"
+        groupSettingGroup.text = SettingsStorage.shared.getStoredGroup().group
         self.view.addSubview(groupSettingText)
         self.view.addSubview(groupSettingGroup)
         
@@ -50,8 +50,7 @@ class SettingsView: UIViewController {
     @objc func done() {
         let generator = UINotificationFeedbackGenerator()
         generator.prepare()
-        UserDefaults.standard.set(GroupToSave?.group, forKey: "SavedGroupGroup")
-        UserDefaults.standard.set(GroupToSave?.id, forKey: "SavedGroupId")
+        SettingsStorage.shared.saveGroupToStorage(group: GroupToSave)
         self.responsiveTableView?.getTimeTable()
         view.endEditing(true)
         generator.notificationOccurred(.success)
