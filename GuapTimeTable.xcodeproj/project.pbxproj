@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0836916ED5211B78A9030A /* Pods_GuapTimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0A191BC969C26CF551A33A /* Pods_GuapTimeTable.framework */; };
 		9229ACB728FB264800874A93 /* EmptyDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACB628FB264800874A93 /* EmptyDataCellView.swift */; };
 		9229ACB9290414C800874A93 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACB8290414C800874A93 /* TableHeaderView.swift */; };
 		9229ACBB29047DB300874A93 /* LessonModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBA29047DB300874A93 /* LessonModalViewController.swift */; };
@@ -25,16 +26,17 @@
 		92D41FC628F47887006F4289 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FC528F47887006F4289 /* SettingsViewController.swift */; };
 		92D41FC828F478C9006F4289 /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FC728F478C9006F4289 /* TimeTableViewController.swift */; };
 		92DAE8F128F9579100EE7C27 /* DeadLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAE8F028F9579100EE7C27 /* DeadLineViewController.swift */; };
-		EAEEADD2EDC905E1DB0902F6 /* Pods_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2DE8B370B4E691915C4BFCB /* Pods_Test.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301117D7CB394AEAE712649A /* Pods-GuapTimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuapTimeTable.release.xcconfig"; path = "Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable.release.xcconfig"; sourceTree = "<group>"; };
+		58B6D713556DD608756F7A38 /* Pods-GuapTimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuapTimeTable.debug.xcconfig"; path = "Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable.debug.xcconfig"; sourceTree = "<group>"; };
 		9229ACB628FB264800874A93 /* EmptyDataCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataCellView.swift; sourceTree = "<group>"; };
 		9229ACB8290414C800874A93 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		9229ACBA29047DB300874A93 /* LessonModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModalViewController.swift; sourceTree = "<group>"; };
 		9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeTableViewController.swift; sourceTree = "<group>"; };
 		9229ACBE2909E70800874A93 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
-		925D068028D7649100121931 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		925D068028D7649100121931 /* GuapTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuapTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		925D068328D7649100121931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		925D068528D7649100121931 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		925D068728D7649100121931 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -49,9 +51,7 @@
 		92D41FC528F47887006F4289 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		92D41FC728F478C9006F4289 /* TimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		92DAE8F028F9579100EE7C27 /* DeadLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineViewController.swift; sourceTree = "<group>"; };
-		ABB789604D80FD5CD9777AD0 /* Pods-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.release.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.release.xcconfig"; sourceTree = "<group>"; };
-		E2DE8B370B4E691915C4BFCB /* Pods_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0D0CA2DC0AF10A4C85FB673 /* Pods-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.debug.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.debug.xcconfig"; sourceTree = "<group>"; };
+		EE0A191BC969C26CF551A33A /* Pods_GuapTimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuapTimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAEEADD2EDC905E1DB0902F6 /* Pods_Test.framework in Frameworks */,
+				1F0836916ED5211B78A9030A /* Pods_GuapTimeTable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,8 +69,8 @@
 		220037F0542C482146570DA7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F0D0CA2DC0AF10A4C85FB673 /* Pods-Test.debug.xcconfig */,
-				ABB789604D80FD5CD9777AD0 /* Pods-Test.release.xcconfig */,
+				58B6D713556DD608756F7A38 /* Pods-GuapTimeTable.debug.xcconfig */,
+				301117D7CB394AEAE712649A /* Pods-GuapTimeTable.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -78,7 +78,7 @@
 		5DA445F7DFD1E0A485184A62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E2DE8B370B4E691915C4BFCB /* Pods_Test.framework */,
+				EE0A191BC969C26CF551A33A /* Pods_GuapTimeTable.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,7 +99,7 @@
 		925D067728D7649100121931 = {
 			isa = PBXGroup;
 			children = (
-				925D068228D7649100121931 /* Test */,
+				925D068228D7649100121931 /* GuapTimeTable */,
 				925D068128D7649100121931 /* Products */,
 				220037F0542C482146570DA7 /* Pods */,
 				5DA445F7DFD1E0A485184A62 /* Frameworks */,
@@ -109,12 +109,12 @@
 		925D068128D7649100121931 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				925D068028D7649100121931 /* Test.app */,
+				925D068028D7649100121931 /* GuapTimeTable.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		925D068228D7649100121931 /* Test */ = {
+		925D068228D7649100121931 /* GuapTimeTable */ = {
 			isa = PBXGroup;
 			children = (
 				9229ACC0290AC6A000874A93 /* Controllers */,
@@ -128,7 +128,7 @@
 				925D069128D7649200121931 /* Info.plist */,
 				92D41FC228F471CD006F4289 /* Launch Screen.storyboard */,
 			);
-			path = Test;
+			path = GuapTimeTable;
 			sourceTree = "<group>";
 		};
 		92D41FB928F08400006F4289 /* Models */ = {
@@ -170,9 +170,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		925D067F28D7649100121931 /* Test */ = {
+		925D067F28D7649100121931 /* GuapTimeTable */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 925D069428D7649200121931 /* Build configuration list for PBXNativeTarget "Test" */;
+			buildConfigurationList = 925D069428D7649200121931 /* Build configuration list for PBXNativeTarget "GuapTimeTable" */;
 			buildPhases = (
 				211BC899FA91268FE904DBFC /* [CP] Check Pods Manifest.lock */,
 				925D067C28D7649100121931 /* Sources */,
@@ -184,9 +184,9 @@
 			);
 			dependencies = (
 			);
-			name = Test;
+			name = GuapTimeTable;
 			productName = Test;
-			productReference = 925D068028D7649100121931 /* Test.app */;
+			productReference = 925D068028D7649100121931 /* GuapTimeTable.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -204,7 +204,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 925D067B28D7649100121931 /* Build configuration list for PBXProject "Test" */;
+			buildConfigurationList = 925D067B28D7649100121931 /* Build configuration list for PBXProject "GuapTimeTable" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -217,7 +217,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				925D067F28D7649100121931 /* Test */,
+				925D067F28D7649100121931 /* GuapTimeTable */,
 			);
 		};
 /* End PBXProject section */
@@ -250,7 +250,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Test-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GuapTimeTable-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -263,15 +263,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Test/Pods-Test-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Test/Pods-Test-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Test/Pods-Test-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -421,7 +421,7 @@
 		};
 		925D069528D7649200121931 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0D0CA2DC0AF10A4C85FB673 /* Pods-Test.debug.xcconfig */;
+			baseConfigurationReference = 58B6D713556DD608756F7A38 /* Pods-GuapTimeTable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -429,7 +429,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95VHSTU4WC;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Test/Info.plist;
+				INFOPLIST_FILE = GuapTimeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -440,7 +440,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = denissidorenko.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = denissidorenko.GuapTimeTable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -450,7 +450,7 @@
 		};
 		925D069628D7649200121931 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABB789604D80FD5CD9777AD0 /* Pods-Test.release.xcconfig */;
+			baseConfigurationReference = 301117D7CB394AEAE712649A /* Pods-GuapTimeTable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -458,7 +458,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95VHSTU4WC;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Test/Info.plist;
+				INFOPLIST_FILE = GuapTimeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -469,7 +469,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = denissidorenko.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = denissidorenko.GuapTimeTable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -480,7 +480,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		925D067B28D7649100121931 /* Build configuration list for PBXProject "Test" */ = {
+		925D067B28D7649100121931 /* Build configuration list for PBXProject "GuapTimeTable" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				925D069228D7649200121931 /* Debug */,
@@ -489,7 +489,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		925D069428D7649200121931 /* Build configuration list for PBXNativeTarget "Test" */ = {
+		925D069428D7649200121931 /* Build configuration list for PBXNativeTarget "GuapTimeTable" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				925D069528D7649200121931 /* Debug */,
