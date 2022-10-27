@@ -17,7 +17,7 @@ class CustomTimeTableView: UIViewController{
         let table = UITableView(frame: .zero, style: .grouped)
         // пока удалим пустую ячейку, случаи пустого расписания обработаем позже
 //        table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier) // регистрация пустой ячейки
-        table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier) // регистрация ячейки с данными
+        table.register(LessonCellView.self, forCellReuseIdentifier: LessonCellView.identifier) // регистрация ячейки с данными
         return table
     }()
     
@@ -56,7 +56,7 @@ extension CustomTimeTableView: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = customTimeTableTableView.dequeueReusableCell(withIdentifier: LessonCell.identifier) as? LessonCell else {
+        guard let cell = customTimeTableTableView.dequeueReusableCell(withIdentifier: LessonCellView.identifier) as? LessonCellView else {
             return UITableViewCell()
         }
         cell.teacher.text = "Тест"
