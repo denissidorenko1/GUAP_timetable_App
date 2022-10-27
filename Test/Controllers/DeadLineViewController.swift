@@ -1,5 +1,5 @@
 //
-//  DeadLineView.swift
+//  DeadLineViewController.swift
 //  Test
 //
 //  Created by Denis on 14.10.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DeadLineView: UIViewController {
+class DeadLineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

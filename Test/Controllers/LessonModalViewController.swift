@@ -1,5 +1,5 @@
 //
-//  LessonModalView.swift
+//  LessonModalViewController.swift
 //  Test
 //
 //  Created by Denis on 22.10.2022.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // переписать на UIPresentationController, чтобы можно было показывать модальное окно только наполовину
-class LessonModalView: UIViewController {
+class LessonModalViewController: UIViewController {
     
     let headerTitle = UILabel()
     var lessonType = UILabel()

@@ -1,5 +1,5 @@
 //
-//  LessonCell.swift
+//  LessonCellView.swift
 //  Test
 //
 //  Created by Denis on 13.10.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LessonCell: UITableViewCell{
+class LessonCellView: UITableViewCell{
     var startTime = UILabel()
     var endTime = UILabel()
     var lessonNumber = UILabel()

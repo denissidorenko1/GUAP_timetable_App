@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class TimeTableView: UIViewController {
+class TimeTableViewController: UIViewController {
     
     public var timeTable: Week?
     
     var timeTableTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier) // регистрация пустой ячейки
-        table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier) // регистрация ячейки с данными
+        table.register(EmptyDataCellView.self, forCellReuseIdentifier: EmptyDataCellView.identifier) // регистрация пустой ячейки
+        table.register(LessonCellView.self, forCellReuseIdentifier: LessonCellView.identifier) // регистрация ячейки с данными
         return table
     }()
     
@@ -63,7 +63,7 @@ class TimeTableView: UIViewController {
     
 }
 
-extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
+extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let timeTable = timeTable else { return 1}
         return timeTable.days.count == 0 ? 1 : timeTable.days.count
@@ -110,19 +110,19 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
         switch timeTable{
         // если расписание не получено (нет сети), вернуть пустую ячейку
         case nil:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCell.identifier, for: indexPath) as? EmptyDataCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCellView.identifier, for: indexPath) as? EmptyDataCellView {
                 cell.explanation.text = "Похоже, отсутствует подключение к сети"
                 return cell
             }
         // если запрос прошел, но ответ пуст, вернуть пустую ячейку
         case let temp where temp?.days.count == optionalZero:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCell.identifier, for: indexPath) as? EmptyDataCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: EmptyDataCellView.identifier, for: indexPath) as? EmptyDataCellView {
                 cell.explanation.text = "Похоже, группа не выбрана или не существует"
                 return cell
             }
         // по умолчанию возвращаем заполненную ячейку с данными
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.identifier, for: indexPath) as? LessonCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonCellView.identifier, for: indexPath) as? LessonCellView else {
                         return UITableViewCell()}
             cell.room.text = timeTable?.days[indexPath.section].lessons[indexPath.item].room
             cell.lessonNumber.text = timeTable?.days[indexPath.section].lessons[indexPath.item].lessonNumber
@@ -160,7 +160,7 @@ extension TimeTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "Раскрыть") { [weak self] (_, _, completionHandler) in
-            let modalView = LessonModalView()
+            let modalView = LessonModalViewController()
             // может, это можно сделать лучше?
             // если данных нет, то попытка заполнить модальное окно пустыми данными приведет к runtime error
             if self?.timeTable == nil || self?.timeTable?.days.count == 0 {}

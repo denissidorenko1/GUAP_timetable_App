@@ -1,5 +1,5 @@
 //
-//  EmptyDataCell.swift
+//  EmptyDataCellView.swift
 //  Test
 //
 //  Created by Denis on 15.10.2022.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // будет ли правильно создать класс, от которого будут наследоваться все используемые ячейки?
-class EmptyDataCell: UITableViewCell{
+class EmptyDataCellView: UITableViewCell{
     let warning = UILabel()
     let explanation = UILabel()
     

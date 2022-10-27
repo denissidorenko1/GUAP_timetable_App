@@ -12,9 +12,9 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
-        let timeTableView = TimeTableView()
-        let deadLineView = DeadLineView()
-        let settingsView = SettingsView()
+        let timeTableView = TimeTableViewController()
+        let deadLineView = DeadLineViewController()
+        let settingsView = SettingsViewController()
         let customTimeTableView = CustomTimeTableView()
         settingsView.responsiveTableView = timeTableView // назначаем вью, которое будем обновлять при изменении настроек
         

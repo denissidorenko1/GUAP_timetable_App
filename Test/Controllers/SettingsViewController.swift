@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  SettingsViewController.swift
 //  Test
 //
 //  Created by Denis on 10.10.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SettingsView: UIViewController {
+class SettingsViewController: UIViewController {
     private var dataArray: [Group] = []
     private var groupSettingText = UILabel(frame: CGRect(x: 10, y: 140, width: UIScreen.main.bounds.width - 120, height: 50))
     private var groupSettingGroup = UITextField(frame: CGRect(x: UIScreen.main.bounds.width - 120, y: 140, width: 100, height: 50))
@@ -16,7 +16,7 @@ class SettingsView: UIViewController {
     private var picker = UIPickerView()
     private var GroupToSave: Group?
     
-    weak var responsiveTableView: TimeTableView?
+    weak var responsiveTableView: TimeTableViewController?
     
     func setupPicker(){
         let pickerView = UIPickerView()
@@ -74,7 +74,7 @@ class SettingsView: UIViewController {
 }
 
 
-extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource{
+extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
