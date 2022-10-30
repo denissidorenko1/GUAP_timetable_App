@@ -10,21 +10,27 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     private var dataArray: [Group] = []
-    private var groupSettingText = UILabel(frame:
-                                            CGRect(x: 10, y: 140, width: UIScreen.main.bounds.width - 120, height: 50))
-    private var groupSettingGroup = UITextField(frame:
-                                                    CGRect(x: UIScreen.main.bounds.width - 120, y: 140,
-                                                           width: 100, height: 50))
     private var groupSettingsData: Group?
     private var picker = UIPickerView()
     private var groupToSave: Group?
     private let generator = UINotificationFeedbackGenerator()
     weak var responsiveTableView: TimeTableViewController?
 
+    private var groupSettingText: UILabel = {
+        let label = UILabel()
+        label.text = "Номер группы:"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        return label
+    }()
+    private var groupSettingGroup: UITextField = {
+        let field = UITextField()
+        field.text = SettingsStorage.shared.getStoredGroup().group
+        field.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        return field
+    }()
+
     override func loadView() {
         super.loadView()
-        groupSettingText.text = "Номер группы:"
-        groupSettingGroup.text = SettingsStorage.shared.getStoredGroup().group
         self.view.addSubview(groupSettingText)
         self.view.addSubview(groupSettingGroup)
 
@@ -44,11 +50,38 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setConstraints()
+    }
+
+    func setConstraints() {
+        groupSettingText.translatesAutoresizingMaskIntoConstraints = false
+        groupSettingGroup.translatesAutoresizingMaskIntoConstraints = false
+
+        let horizontalConstraints = [
+            groupSettingText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            groupSettingText.trailingAnchor.constraint(equalTo: groupSettingGroup.leadingAnchor, constant: -110),
+            groupSettingGroup.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+        ]
+        groupSettingText.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        groupSettingGroup.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+        let verticalConstraints = [
+            // Приемлимо ли делать force unwrapping навконтроллера, если это происходит во viewDidLayoutSubviews,
+            // и навконтроллер не является nil?
+            groupSettingText.topAnchor.constraint(equalTo: (navigationController?.navigationBar.bottomAnchor)!, constant: 10),
+            groupSettingGroup.centerYAnchor.constraint(equalTo: groupSettingText.centerYAnchor, constant: 0)
+        ]
+
+        NSLayoutConstraint.activate([horizontalConstraints, verticalConstraints].flatMap {$0})
+    }
+
     func setupPicker() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         groupSettingGroup.inputView = picker
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        let toolBar = UIToolbar()
         toolBar.sizeToFit()
         let saveButton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.done))
         let cancelButton = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
@@ -69,6 +102,7 @@ class SettingsViewController: UIViewController {
         generator.prepare()
         view.endEditing(true)
         generator.notificationOccurred(.error)
+        groupSettingGroup.text = SettingsStorage.shared.getStoredGroup().group
     }
 }
 
@@ -89,7 +123,6 @@ extension SettingsViewController: UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(row, component)
         groupSettingGroup.text = dataArray[row].group
         groupToSave = dataArray[row]
     }
