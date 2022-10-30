@@ -73,15 +73,16 @@ class SettingsViewController: UIViewController {
 }
 
 // MARK: - PickerViewDelegate, PickerViewDataSource
-extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
+extension SettingsViewController: UIPickerViewDelegate {
+    /*
+     The delegate of a UIPickerView object must adopt this protocol and implement at least some of
+     its methods to provide the picker view with the data it needs to construct itself.
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataArray.count
-    }
-
+     The delegate implements the required methods of this protocol to return height, width, row title,
+     and the view content for the rows in each component.
+     It must also provide the content for each component’s row, either as a string or a view.
+     The delegate implements other optional methods to respond to new selections or deselections of component rows.
+     */
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let row = dataArray[row].group
         return row
@@ -91,5 +92,20 @@ extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         print(row, component)
         groupSettingGroup.text = dataArray[row].group
         groupToSave = dataArray[row]
+    }
+}
+
+extension SettingsViewController: UIPickerViewDataSource {
+    /*
+     The data source provides the picker view with the number of components,
+     and the number of rows in each component, for displaying the picker view data.
+     Both methods in this protocol are required.
+     */
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return dataArray.count
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
 }
