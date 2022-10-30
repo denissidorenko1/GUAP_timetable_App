@@ -7,8 +7,7 @@
 
 import Foundation
 
-
-struct Constants{
+struct Constants {
     static let baseURL = "https://guap.ru/rasp/"
 }
 
@@ -44,17 +43,17 @@ struct Rooms {
     var roomList: [Room] = []
 }
 
-struct Groups{
+struct Groups {
     var groupList: [Group] = []
 }
 
-class SelectData{
+class SelectData {
     let groups: Groups
     let rooms: Rooms
     let teachers: Teachers
     let buildings: Buildings
-    
-    init(groups: Groups, rooms: Rooms, teachers: Teachers, buildings: Buildings){
+
+    init(groups: Groups, rooms: Rooms, teachers: Teachers, buildings: Buildings) {
         self.groups = groups
         self.rooms = rooms
         self.teachers = teachers

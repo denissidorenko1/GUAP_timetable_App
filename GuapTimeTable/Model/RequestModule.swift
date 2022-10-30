@@ -10,16 +10,17 @@ import SwiftSoup
 
 class RequestModule {
     static var shared = RequestModule()
-    
-    
+
     // TODO: - произвести рефакторинг, переписать на completion, мб тесты сделать, перенести в другой файл
-    public func requestTimeTable(group: Group? = nil, teacher: Teacher? = nil, building: Building? = nil, room: Room? = nil, completion: @escaping (Week)->()) {
+    public func requestTimeTable(group: Group? = nil, teacher: Teacher? = nil,
+                                 building: Building? = nil, room: Room? = nil,
+                                 completion: @escaping (Week) -> Void) {
         var weekStruct = Week()
         let link = "\(Constants.baseURL)?g=\(group?.id ?? "")&p=\(teacher?.id ?? "")&b=\(building?.id ?? "")&r=\(room?.id ?? "")"
         let request = URLRequest(url: URL(string: link)!)
 //        request.allHTTPHeaderFields = ["authToken": "nil"]
 //        request.httpMethod = "GET"
-        let _ = URLSession.shared.dataTask(with: request) {data, _, _ in
+        URLSession.shared.dataTask(with: request) {data, _, _ in
             if let data = data {
                 do {
                     var dayStruct = Day(dayTitle: "undefined")
@@ -34,10 +35,10 @@ class RequestModule {
                     // разбиение пар и времени по тегу <h4>
                     html = html.replacingOccurrences(of: "<h4>", with: "</\(timeTag)><\(timeTag)><h4>")
                     html = html.replaceLast(of: "</div></div>", with: "</\(timeTag)></\(dayTag)></div></div>")
-                    
+
                     let doc: Document = try SwiftSoup.parse(html)
                     let result = try doc.getElementsByClass("result").first()!
-                    
+
                     let thisWeekType = try doc.getElementsByTag("em").first()?.className()
                     switch thisWeekType {
                     case "dn":
@@ -49,7 +50,7 @@ class RequestModule {
                     }
                     // разбиение по дням недели
                     let days = try result.getElementsByTag("\(dayTag)")
-                    for day in days{
+                    for day in days {
                         dayTitle = try day.getElementsByTag("h3").first()?.text()
                         // разбиение по времени пар
                         let times = try day.getElementsByTag("\(timeTag)")
@@ -58,10 +59,10 @@ class RequestModule {
                             guard let timeStamp = timeStamp else {
                                 return
                             }
-                            var startTime: String? = nil
-                            var endTime: String? = nil
-                            var lessonNumber: String? = nil
-                            
+                            var startTime: String?
+                            var endTime: String?
+                            var lessonNumber: String?
+
                             if timeStamp.contains("–") { // если содержит, значит, существует дата
                                 let leftBracketIndex = timeStamp.firstIndex(of: "(")!
                                 let rightBracketIndex = timeStamp.lastIndex(of: ")")!
@@ -75,14 +76,13 @@ class RequestModule {
                             // разбиение по занятием на паре
                             let lessons = try time.getElementsByClass("study")
                             for lesson in lessons {
-                                
+
                                 let lessonType = try lesson.getElementsByTag("b").last()?.text()
-                                
-                                
+
                                 let dnWeek = try lesson.getElementsByClass("dn").first()
                                 let upWeek = try lesson.getElementsByClass("up").first()
                                 var weekType = WeekType.both
-                                switch (dnWeek, upWeek){
+                                switch (dnWeek, upWeek) {
                                 case (nil, nil): // оба nil, значит, проводятся в любой тип недели
                                     weekType = WeekType.both
                                 case (nil, _): // нижняя неделя nil, значит верхняя
@@ -92,13 +92,19 @@ class RequestModule {
                                 default:
                                     fatalError("Switch statement has default case, which is not possible")
                                 }
-                                let pairPlace = try lesson.getElementsByTag("span").first()!.text().components(separatedBy: " – ")
+                                let pairPlace = try lesson.getElementsByTag("span").first()!
+                                    .text().components(separatedBy: " – ")
                                 let title = pairPlace[1]
                                 let building = pairPlace[2].components(separatedBy: ",").first
                                 let room = pairPlace[2].components(separatedBy: ". ").last
                                 let groups = try lesson.getElementsByClass("groups").text().components(separatedBy: ";")
-                                let teacher = try lesson.getElementsByClass("preps").first()?.text().replacingOccurrences(of: "Преподаватель: ", with: "")
-                                lssn = Lesson(title: title, startTime: startTime, endTime: endTime, lessonNumber: lessonNumber, teacher: teacher, lessonType: lessonType ?? "", groups: groups, building: building ?? "undef", room: room ?? "undef", weekType: weekType)
+                                let teacher = try lesson.getElementsByClass("preps").first()?
+                                    .text().replacingOccurrences(of: "Преподаватель: ", with: "")
+                                lssn = Lesson(title: title, startTime: startTime, endTime: endTime,
+                                              lessonNumber: lessonNumber, teacher: teacher,
+                                              lessonType: lessonType ?? "", groups: groups,
+                                              building: building ?? "undef",
+                                              room: room ?? "undef", weekType: weekType)
                                 dayStruct.lessons.append(lssn!)
                             }
                         }
@@ -113,11 +119,11 @@ class RequestModule {
                     print("error parsing timetable")
                 }
             }
-            
+
         }.resume()
     }
 
-    public func getSelectData(completion: @escaping (SelectData)->()) {
+    public func getSelectData(completion: @escaping (SelectData) -> Void) {
         var request = URLRequest(url: URL(string: "\(Constants.baseURL)")!)
         request.allHTTPHeaderFields = ["authToken": "nil"]
         request.httpMethod = "GET"
@@ -125,30 +131,26 @@ class RequestModule {
         var teachers = Teachers()
         var rooms = Rooms()
         var buildings = Buildings()
-        let _ = URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             if let data = data {
                 do {
                     let html = String(data: data, encoding: .utf8)!
                     let doc: Document = try SwiftSoup.parse(html)
                     let selects = try doc.select("select")
-                    for (index,select) in selects.enumerated()  {
+                    for (index, select) in selects.enumerated() {
                         let options = try select.select("option")
                         for option in options {
                             let value = try option.attr("value")
                             let text = try option.text()
-                            switch index{
+                            switch index {
                             case 0:
-                                let gr = Group(id: value, group: text)
-                                groups.groupList.append(gr)
+                                groups.groupList.append(Group(id: value, group: text))
                             case 1:
-                                let tchr = Teacher(id: value, name: text)
-                                teachers.teacherList.append(tchr)
+                                teachers.teacherList.append(Teacher(id: value, name: text))
                             case 2:
-                                let bldng = Building(id: value, addres: text)
-                                buildings.buildingList.append(bldng)
+                                buildings.buildingList.append(Building(id: value, addres: text))
                             case 3:
-                                let rm = Room(id: value, room: text)
-                                rooms.roomList.append(rm)
+                                rooms.roomList.append(Room(id: value, room: text))
                             default:
                                 fatalError("Default")
                             }
@@ -160,10 +162,7 @@ class RequestModule {
                 } catch {
                     print("unknown error")
                 }
-                
             }
         }.resume()
     }
-    
-    
 }

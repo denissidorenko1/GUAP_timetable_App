@@ -175,6 +175,7 @@
 			buildConfigurationList = 925D069428D7649200121931 /* Build configuration list for PBXNativeTarget "GuapTimeTable" */;
 			buildPhases = (
 				211BC899FA91268FE904DBFC /* [CP] Check Pods Manifest.lock */,
+				922D822C290B3D1400F213BC /* Run SwiftLint */,
 				925D067C28D7649100121931 /* Sources */,
 				925D067D28D7649100121931 /* Frameworks */,
 				925D067E28D7649100121931 /* Resources */,
@@ -273,6 +274,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GuapTimeTable/Pods-GuapTimeTable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		922D822C290B3D1400F213BC /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Adds support for Apple Silicon brew directory\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint; then\n    swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -9,19 +9,18 @@ import Foundation
 import UIKit
 
 class TableHeaderView: UIView { // переименовать
-    
+
     let currentWeekLabel = UILabel()
     let currentDayLabel = UILabel()
     var currentWeekType: WeekType?
-    
-    
+
     private func setLabelText() {
         currentDayLabel.text = "Сегодня \(getCurrentDay()),"
         currentWeekLabel.text = currentWeekType == .blue ? "синяя неделя" : "красная неделя"
         currentWeekLabel.textColor = currentWeekType == .blue ? .blue : .red
     }
-    
-    private func setConstraints(){
+
+    private func setConstraints() {
         currentWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         currentDayLabel.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
@@ -36,14 +35,14 @@ class TableHeaderView: UIView { // переименовать
         constraints.last!.priority = UILayoutPriority(5)
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     private func setFonts() {
         currentDayLabel.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         currentWeekLabel.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
     }
-    
+
     // получаем текущий день недели из календаря
-    private func getCurrentDay() -> String{
+    private func getCurrentDay() -> String {
         // числа 1-7 соответствуют дню недели
         switch Calendar.current.component(.weekday, from: Date()) {
         case 1:
@@ -64,7 +63,7 @@ class TableHeaderView: UIView { // переименовать
             fatalError("Выход значения за пределы допустимого диапазона")
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.addSubview(currentDayLabel)
@@ -73,7 +72,6 @@ class TableHeaderView: UIView { // переименовать
         setFonts()
         setConstraints()
         self.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 50) // дважды устанавливаем frame, сомнительно
-        
-        
+
     }
 }

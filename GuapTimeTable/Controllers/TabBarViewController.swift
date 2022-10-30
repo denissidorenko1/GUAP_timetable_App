@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
@@ -16,8 +16,9 @@ class TabBarViewController: UITabBarController {
         let deadLineView = DeadLineViewController()
         let settingsView = SettingsViewController()
         let customTimeTableView = CustomTimeTableView()
-        settingsView.responsiveTableView = timeTableView // назначаем вью, которое будем обновлять при изменении настроек
-        
+        // назначаем вью, которое будем обновлять при изменении настроек
+        settingsView.responsiveTableView = timeTableView
+
         let vc1 = UINavigationController(rootViewController: timeTableView)
         let vc2 = UINavigationController(rootViewController: deadLineView)
         let vc3 = UINavigationController(rootViewController: settingsView)
@@ -26,7 +27,7 @@ class TabBarViewController: UITabBarController {
         vc2.title = "Дедлайны"
         vc3.title = "Настройки"
         vc4.title = "Кастом"
-        
+
         vc1.tabBarItem.image = UIImage(systemName: "calendar")
         vc2.tabBarItem.image = UIImage(systemName: "alarm.fill")
         vc3.tabBarItem.image = UIImage(systemName: "gear")
@@ -36,4 +37,3 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .label
     }
 }
-

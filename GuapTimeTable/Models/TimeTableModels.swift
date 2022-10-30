@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WeekType{
+enum WeekType {
     case red
     case blue
     case both
