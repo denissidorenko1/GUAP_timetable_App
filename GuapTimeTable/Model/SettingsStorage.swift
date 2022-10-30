@@ -23,7 +23,7 @@ class SettingsStorage {
     // будет ли правильным возвращать группу с пустыми значениями в случае отсутствия группы в хранилище,
     // или лучше возращать опциональное значение, и обрабатывать его в уже по месту?
     public func getStoredGroup() -> Group {
-        return Group(id: defaults.string(forKey: groupId) ?? "",
-                          group: defaults.string(forKey: groupTitle) ?? "")
+        return Group(id: defaults.string(forKey: groupId),
+                          group: defaults.string(forKey: groupTitle))
     }
 }

@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
     }()
     private var groupSettingGroup: UITextField = {
         let field = UITextField()
-        field.text = SettingsStorage.shared.getStoredGroup().group
+        field.text = SettingsStorage.shared.getStoredGroup().group ?? "-нет-"
         field.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         return field
     }()
@@ -102,7 +102,7 @@ class SettingsViewController: UIViewController {
         generator.prepare()
         view.endEditing(true)
         generator.notificationOccurred(.error)
-        groupSettingGroup.text = SettingsStorage.shared.getStoredGroup().group
+        groupSettingGroup.text = SettingsStorage.shared.getStoredGroup().group ?? "-нет-"
     }
 }
 
