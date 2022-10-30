@@ -12,23 +12,23 @@ struct Constants {
 }
 
 struct Group {
-    var id: String
-    var group: String
+    let id: String?
+    let group: String?
 }
 
 struct Room {
-    var id: String
-    var room: String
+    let id: String
+    let room: String
 }
 
 struct Teacher {
-    var id: String
-    var name: String
+    let id: String
+    let name: String
 }
 
 struct Building {
-    var id: String
-    var addres: String
+    let id: String
+    let addres: String
 }
 
 struct Buildings {
