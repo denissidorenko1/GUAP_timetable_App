@@ -8,11 +8,34 @@
 import Foundation
 import UIKit
 
-class TableHeaderView: UIView { // переименовать
+final class TableHeaderView: UIView { // переименовать
 
-    let currentWeekLabel = UILabel()
-    let currentDayLabel = UILabel()
-    var currentWeekType: WeekType?
+    private let currentWeekLabel = UILabel()
+    private let currentDayLabel = UILabel()
+    private var currentWeekType: WeekType?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 50)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addSubview(currentDayLabel)
+        self.addSubview(currentWeekLabel)
+        setLabelText()
+        setFonts()
+        setConstraints()
+    }
+
+    // через эту функцию получаем инфо о цвете текущей недели
+    public func getWeekType(week: WeekType?) {
+        self.currentWeekType = week
+    }
 
     private func setLabelText() {
         currentDayLabel.text = "Сегодня \(getCurrentDay()),"
@@ -23,12 +46,13 @@ class TableHeaderView: UIView { // переименовать
     private func setConstraints() {
         currentWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         currentDayLabel.translatesAutoresizingMaskIntoConstraints = false
+
         let constraints = [
             // вертикаль
             currentDayLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             currentWeekLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             // горизонталь
-            currentDayLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            currentDayLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             currentDayLabel.trailingAnchor.constraint(equalTo: currentWeekLabel.leadingAnchor, constant: -10),
             currentWeekLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ]
@@ -62,16 +86,5 @@ class TableHeaderView: UIView { // переименовать
         default:
             fatalError("Выход значения за пределы допустимого диапазона")
         }
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.addSubview(currentDayLabel)
-        self.addSubview(currentWeekLabel)
-        setLabelText()
-        setFonts()
-        setConstraints()
-        self.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width - 20, height: 50) // дважды устанавливаем frame, сомнительно
-
     }
 }

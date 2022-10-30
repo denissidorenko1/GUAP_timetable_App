@@ -8,17 +8,25 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    let timeTableView = TimeTableViewController()
+    let deadLineView = DeadLineViewController()
+    let settingsView = SettingsViewController()
+    let customTimeTableView = CustomTimeTableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAppearance()
+        setupNavigation()
+    }
+
+    private func setupAppearance() {
         view.backgroundColor = .systemPink
-        let timeTableView = TimeTableViewController()
-        let deadLineView = DeadLineViewController()
-        let settingsView = SettingsViewController()
-        let customTimeTableView = CustomTimeTableView()
+        tabBar.tintColor = .label
+    }
+
+    private func setupNavigation() {
         // назначаем вью, которое будем обновлять при изменении настроек
         settingsView.responsiveTableView = timeTableView
-
         let vc1 = UINavigationController(rootViewController: timeTableView)
         let vc2 = UINavigationController(rootViewController: deadLineView)
         let vc3 = UINavigationController(rootViewController: settingsView)
@@ -33,7 +41,5 @@ class TabBarViewController: UITabBarController {
         vc3.tabBarItem.image = UIImage(systemName: "gear")
         vc4.tabBarItem.image = UIImage(systemName: "gyroscope")
         setViewControllers([vc1, vc4, vc2, vc3], animated: true)
-
-        tabBar.tintColor = .label
     }
 }

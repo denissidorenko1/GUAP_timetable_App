@@ -8,17 +8,16 @@
 import Foundation
 import UIKit
 
-class CustomTimeTableView: UIViewController {
+final class CustomTimeTableView: UIViewController {
 
     private var customTimeTable: Week?
-
-    var customTimeTableTableView: UITableView = {
+    private var customTimeTableTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         // пока удалим пустую ячейку, случаи пустого расписания обработаем позже
-        /// регистрация пустой ячейки
+        // регистрация пустой ячейки
 //        table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier)
-        /// регистрация ячейки с данными
-        table.register(LessonCellView.self, forCellReuseIdentifier: LessonCellView.identifier)
+        // регистрация ячейки с данными
+        table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier)
         return table
     }()
 
@@ -27,7 +26,6 @@ class CustomTimeTableView: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Кастом"
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addNewLessonButton))
         navigationItem.rightBarButtonItem?.tintColor = .label
@@ -50,6 +48,7 @@ class CustomTimeTableView: UIViewController {
     }
 }
 
+// MARK: - TableViewDelegate, TableViewDataSource
 extension CustomTimeTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -57,10 +56,9 @@ extension CustomTimeTableView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = customTimeTableTableView.dequeueReusableCell(
-            withIdentifier: LessonCellView.identifier) as? LessonCellView else {
+            withIdentifier: LessonCell.identifier) as? LessonCell else {
             return UITableViewCell()
         }
-        cell.teacher.text = "Тест"
         return cell
     }
 
