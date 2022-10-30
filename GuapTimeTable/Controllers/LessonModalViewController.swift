@@ -9,16 +9,28 @@ import Foundation
 import UIKit
 
 // переписать на UIPresentationController, чтобы можно было показывать модальное окно только наполовину
-class LessonModalViewController: UIViewController {
+final class LessonModalViewController: UIViewController {
+    private let headerTitle = UILabel()
+    private let lessonType = UILabel()
+    private let subjectName = UILabel()
+    private let room = UILabel()
+    private let teacher = UILabel()
+    private let groups = UILabel()
+    private let building = UILabel()
 
-    let headerTitle = UILabel()
-    var lessonType = UILabel()
-    var subjectName = UILabel()
-    var room = UILabel()
-    var teacher = UILabel()
-    var groups = UILabel()
+    override func loadView() {
+        super.loadView()
+        setLabelText()
+        setLabelFonts()
+        addLabelsToView()
 
-    var building = UILabel()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        configureConstraints()
+    }
 
     func setLabelText() {
         headerTitle.text = "Подробное расписание"
@@ -81,13 +93,9 @@ class LessonModalViewController: UIViewController {
         // лейбл здания и аудитория стоят на одной высоте, требуется изменить приоритет для верного отображения
         roomConstraints[0].priority = UILayoutPriority(500)
 
-        NSLayoutConstraint.activate(headerConstraints)
-        NSLayoutConstraint.activate(subjectConstraints)
-        NSLayoutConstraint.activate(teacherConstraints)
-        NSLayoutConstraint.activate(buildingConstraints)
-        NSLayoutConstraint.activate(roomConstraints)
-        NSLayoutConstraint.activate(groupConstraints)
-        NSLayoutConstraint.activate(lessonTypeConstraints)
+        NSLayoutConstraint.activate([headerConstraints, subjectConstraints, teacherConstraints,
+                                    buildingConstraints, roomConstraints, groupConstraints,
+                                    lessonTypeConstraints].flatMap {$0})
     }
 
     func addLabelsToView() {
@@ -110,17 +118,32 @@ class LessonModalViewController: UIViewController {
         groups.font = UIFont.systemFont(ofSize: 18, weight: .regular)
     }
 
-    override func loadView() {
-        super.loadView()
-        setLabelText()
-        setLabelFonts()
-        addLabelsToView()
-
+    private func getLessonType(abbr: String?) -> String {
+        switch abbr {
+        case "ЛР":
+            return "Лабораторная работа"
+        case "ПР":
+            return "Практическая работа"
+        case "Л":
+            return "Лекция"
+        case "КП":
+            return "Курсовой проект"
+        case "КР":
+            return "Курсовая работа"
+        default:
+            return "" // есть еще какой-то тип пар, вроде
+        }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        configureConstraints()
+    public func setData(timeTable: Week?, indexPath: IndexPath) {
+        self.room.text = timeTable?.days[indexPath.section].lessons[indexPath.item].room
+        self.lessonType.text =  getLessonType(abbr: timeTable?.days[indexPath.section]
+                                                            .lessons[indexPath.item].lessonType)
+        self.teacher.text = timeTable?.days[indexPath.section].lessons[indexPath.item].teacher
+        self.groups.text = timeTable?.days[indexPath.section]
+            .lessons[indexPath.item].groups.joined(separator: ", ")
+        self.subjectName.text = timeTable?.days[indexPath.section].lessons[indexPath.item].title
+        self.building.text = timeTable?.days[indexPath.section].lessons[indexPath.item].building
     }
+
 }

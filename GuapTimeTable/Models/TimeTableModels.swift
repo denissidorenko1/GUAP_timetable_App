@@ -14,16 +14,16 @@ enum WeekType {
 }
 // Добавить типы занятия: лекции, практики, и тд
 struct Lesson {
-    var title: String // название пары
-    var startTime: String? // время начала пары
-    var endTime: String? // время окончания пары
-    var lessonNumber: String? // Порядковый номер пары
-    var teacher: String? // бывают пары без преподов
-    var lessonType: String
-    var groups: [String]
-    var building: String
-    var room: String?
-    var weekType: WeekType
+    let title: String // название пары
+    let startTime: String? // время начала пары
+    let endTime: String? // время окончания пары
+    let lessonNumber: String? // Порядковый номер пары
+    let teacher: String? // бывают пары без преподов
+    let lessonType: String
+    let groups: [String]
+    let building: String
+    let room: String?
+    let weekType: WeekType
 }
 
 struct Day {
