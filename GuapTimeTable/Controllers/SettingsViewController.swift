@@ -106,7 +106,7 @@ class SettingsViewController: UIViewController {
     }
 }
 
-// MARK: - PickerViewDelegate, PickerViewDataSource
+// MARK: - PickerViewDelegate
 extension SettingsViewController: UIPickerViewDelegate {
     /*
      The delegate of a UIPickerView object must adopt this protocol and implement at least some of
@@ -128,6 +128,7 @@ extension SettingsViewController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - PickerViewDataSource
 extension SettingsViewController: UIPickerViewDataSource {
     /*
      The data source provides the picker view with the number of components,

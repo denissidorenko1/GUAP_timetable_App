@@ -11,6 +11,10 @@ import SwiftSoup
 class RequestModule {
     static var shared = RequestModule()
 
+    // препятствуем создание множества экземпляров класса, сделав инициализатор приватным
+    // теперь доступ к классу может происходить только через статическую переменную
+    private init() { }
+
     // TODO: - произвести рефакторинг, переписать на completion, мб тесты сделать, перенести в другой файл
     public func requestTimeTable(group: Group? = nil, teacher: Teacher? = nil,
                                  building: Building? = nil, room: Room? = nil,
