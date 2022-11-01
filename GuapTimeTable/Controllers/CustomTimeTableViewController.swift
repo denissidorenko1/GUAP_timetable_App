@@ -48,7 +48,7 @@ final class CustomTimeTableView: UIViewController {
     }
 }
 
-// MARK: - TableViewDelegate, TableViewDataSource
+// MARK: - TableViewDelegate
 extension CustomTimeTableView: UITableViewDelegate {
     /*
      Use the methods of this protocol to manage the following features:
@@ -73,6 +73,7 @@ extension CustomTimeTableView: UITableViewDelegate {
     }
 }
 
+// MARK: - TableViewDataSource
 extension CustomTimeTableView: UITableViewDataSource {
     /*  Other responsibilities of the data source object include:
             Reporting the number of sections and rows in the table.

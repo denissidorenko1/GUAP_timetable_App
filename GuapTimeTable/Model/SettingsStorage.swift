@@ -7,10 +7,16 @@
 
 import Foundation
 class SettingsStorage {
+    // Вопрос: можно ли использовать Singleton при работе с UserDefaults, если сам UserDefaults - Singleton?
+    // Ведь даже если реализовать данный класс не через Singleton, остается неявная зависимость в виде UserDefaults
     static let shared = SettingsStorage()
     private let defaults = UserDefaults.standard
     private let groupTitle = "SavedGroupTitle"
     private let groupId = "SavedGroupId"
+
+    // препятствуем создание множества экземпляров класса, сделав инициализатор приватным
+    // теперь доступ к классу может происходить только через статическую переменную
+    private init() { }
 
     public func saveGroupToStorage(group: Group?) {
         guard let group = group else {
@@ -20,8 +26,6 @@ class SettingsStorage {
         defaults.set(group.id, forKey: groupId)
     }
 
-    // будет ли правильным возвращать группу с пустыми значениями в случае отсутствия группы в хранилище,
-    // или лучше возращать опциональное значение, и обрабатывать его в уже по месту?
     public func getStoredGroup() -> Group {
         return Group(id: defaults.string(forKey: groupId),
                           group: defaults.string(forKey: groupTitle))

@@ -60,7 +60,7 @@ final class TimeTableViewController: UIViewController {
     }
 }
 
-// MARK: - TableViewDelegate, TableViewDataSource
+// MARK: - TableViewDelegate
 extension TimeTableViewController: UITableViewDelegate {
     /*
      Use the methods of this protocol to manage the following features:
@@ -101,6 +101,7 @@ extension TimeTableViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - TableViewDataSource
 extension TimeTableViewController: UITableViewDataSource {
 /*  Other responsibilities of the data source object include:
         Reporting the number of sections and rows in the table.
