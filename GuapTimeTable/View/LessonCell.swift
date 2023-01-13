@@ -109,6 +109,28 @@ final class LessonCell: UITableViewCell {
         }
     }
 
+    public func setDataFromCoreData(data: LessonCoreData) {
+        self.room.text = data.room
+        self.lessonNumber.text = String(data.lessonNumber)
+        self.lessonType.text = data.lessonType
+        self.teacher.text = data.teacher
+        self.groups.text = String(data.groups!.joined(separator: ", "))
+        self.subjectName.text = data.subjectTitle
+
+//        self.endTime.text =
+//        self.startTime.text =
+        switch data.weekType {
+        case 0:
+//            print("0")
+            self.lessonNumber.textColor = .red
+        case 1:
+//            print("1")
+            self.lessonNumber.textColor = .blue
+        default:
+//            print("default")
+        }
+    }
+
     private func drawLine() -> CAShapeLayer {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 65, y: 8))

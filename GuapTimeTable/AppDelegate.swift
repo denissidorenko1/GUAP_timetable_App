@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,4 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
+
+    lazy var persistentContainer: NSPersistentContainer = {
+       let container = NSPersistentContainer(name: "GuapTimeTable")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("unresolved error, \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
 }

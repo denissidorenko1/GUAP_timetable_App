@@ -17,7 +17,11 @@
 		925D068628D7649100121931 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068528D7649100121931 /* SceneDelegate.swift */; };
 		925D068828D7649100121931 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068728D7649100121931 /* TabBarViewController.swift */; };
 		925D068D28D7649200121931 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 925D068C28D7649200121931 /* Assets.xcassets */; };
+		925EF0D92911A82D0073201A /* ChangeLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925EF0D82911A82D0073201A /* ChangeLessonViewController.swift */; };
 		9262F09328F7696500A35604 /* LessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9262F09228F7696500A35604 /* LessonCell.swift */; };
+		926832BD291EC57E0018F216 /* GuapTimeTable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 926832BB291EC57E0018F216 /* GuapTimeTable.xcdatamodeld */; };
+		926832D7291ECFF00018F216 /* LessonCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926832D3291ECFF00018F216 /* LessonCoreData+CoreDataClass.swift */; };
+		926832D8291ECFF00018F216 /* LessonCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926832D4291ECFF00018F216 /* LessonCoreData+CoreDataProperties.swift */; };
 		92D41FB828F05120006F4289 /* SelectQueryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FB728F05120006F4289 /* SelectQueryModels.swift */; };
 		92D41FBB28F08423006F4289 /* TimeTableModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FBA28F08423006F4289 /* TimeTableModels.swift */; };
 		92D41FBE28F45891006F4289 /* RequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D41FBD28F45891006F4289 /* RequestModule.swift */; };
@@ -42,7 +46,11 @@
 		925D068728D7649100121931 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		925D068C28D7649200121931 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		925D069128D7649200121931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		925EF0D82911A82D0073201A /* ChangeLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLessonViewController.swift; sourceTree = "<group>"; };
 		9262F09228F7696500A35604 /* LessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCell.swift; sourceTree = "<group>"; };
+		926832BC291EC57E0018F216 /* GuapTimeTable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GuapTimeTable.xcdatamodel; sourceTree = "<group>"; };
+		926832D3291ECFF00018F216 /* LessonCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LessonCoreData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		926832D4291ECFF00018F216 /* LessonCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LessonCoreData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		92D41FB728F05120006F4289 /* SelectQueryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQueryModels.swift; sourceTree = "<group>"; };
 		92D41FBA28F08423006F4289 /* TimeTableModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModels.swift; sourceTree = "<group>"; };
 		92D41FBD28F45891006F4289 /* RequestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModule.swift; sourceTree = "<group>"; };
@@ -92,6 +100,7 @@
 				92D41FC728F478C9006F4289 /* TimeTableViewController.swift */,
 				9229ACBA29047DB300874A93 /* LessonModalViewController.swift */,
 				9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */,
+				925EF0D82911A82D0073201A /* ChangeLessonViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -127,13 +136,24 @@
 				925D068C28D7649200121931 /* Assets.xcassets */,
 				925D069128D7649200121931 /* Info.plist */,
 				92D41FC228F471CD006F4289 /* Launch Screen.storyboard */,
+				926832BB291EC57E0018F216 /* GuapTimeTable.xcdatamodeld */,
 			);
 			path = GuapTimeTable;
+			sourceTree = "<group>";
+		};
+		926832BE291ECC210018F216 /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				926832D3291ECFF00018F216 /* LessonCoreData+CoreDataClass.swift */,
+				926832D4291ECFF00018F216 /* LessonCoreData+CoreDataProperties.swift */,
+			);
+			path = CoreDataModels;
 			sourceTree = "<group>";
 		};
 		92D41FB928F08400006F4289 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				926832BE291ECC210018F216 /* CoreDataModels */,
 				92D41FB728F05120006F4289 /* SelectQueryModels.swift */,
 				92D41FBA28F08423006F4289 /* TimeTableModels.swift */,
 			);
@@ -300,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				926832BD291EC57E0018F216 /* GuapTimeTable.xcdatamodeld in Sources */,
 				9229ACB9290414C800874A93 /* TableHeaderView.swift in Sources */,
 				92D41FC128F459D0006F4289 /* StringExtensions.swift in Sources */,
 				92D41FC628F47887006F4289 /* SettingsViewController.swift in Sources */,
@@ -307,12 +328,15 @@
 				9229ACBD2907E90000874A93 /* CustomTimeTableViewController.swift in Sources */,
 				9229ACBB29047DB300874A93 /* LessonModalViewController.swift in Sources */,
 				9229ACBF2909E70800874A93 /* SettingsStorage.swift in Sources */,
+				926832D8291ECFF00018F216 /* LessonCoreData+CoreDataProperties.swift in Sources */,
 				925D068428D7649100121931 /* AppDelegate.swift in Sources */,
 				9262F09328F7696500A35604 /* LessonCell.swift in Sources */,
 				92DAE8F128F9579100EE7C27 /* DeadLineViewController.swift in Sources */,
 				925D068628D7649100121931 /* SceneDelegate.swift in Sources */,
 				9229ACB728FB264800874A93 /* EmptyDataCell.swift in Sources */,
+				925EF0D92911A82D0073201A /* ChangeLessonViewController.swift in Sources */,
 				92D41FB828F05120006F4289 /* SelectQueryModels.swift in Sources */,
+				926832D7291ECFF00018F216 /* LessonCoreData+CoreDataClass.swift in Sources */,
 				92D41FBB28F08423006F4289 /* TimeTableModels.swift in Sources */,
 				92D41FBE28F45891006F4289 /* RequestModule.swift in Sources */,
 				92D41FC828F478C9006F4289 /* TimeTableViewController.swift in Sources */,
@@ -518,6 +542,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		926832BB291EC57E0018F216 /* GuapTimeTable.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				926832BC291EC57E0018F216 /* GuapTimeTable.xcdatamodel */,
+			);
+			currentVersion = 926832BC291EC57E0018F216 /* GuapTimeTable.xcdatamodel */;
+			path = GuapTimeTable.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 925D067828D7649100121931 /* Project object */;
 }

@@ -44,6 +44,7 @@ final class TimeTableViewController: UIViewController {
 
     // загружаем расписание, когда загружено - обновляем таблицу
     public func getTimeTable() {
+        // TODO: убрать self из capture list, он не нужен
         RequestModule.shared.requestTimeTable(group: SettingsStorage.shared.getStoredGroup()) {[weak self] data in
             self?.timeTable = data
             DispatchQueue.main.async {
