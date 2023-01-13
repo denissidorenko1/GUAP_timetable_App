@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseDatabase
 
 final class CustomTimeTableView: UIViewController {
 
@@ -29,6 +30,8 @@ final class CustomTimeTableView: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addNewLessonButton))
         navigationItem.rightBarButtonItem?.tintColor = .label
+        
+        
     }
 
     override func viewDidLoad() {
