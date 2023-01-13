@@ -13,6 +13,7 @@
 		9229ACBB29047DB300874A93 /* LessonModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBA29047DB300874A93 /* LessonModalViewController.swift */; };
 		9229ACBD2907E90000874A93 /* CustomTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */; };
 		9229ACBF2909E70800874A93 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBE2909E70800874A93 /* SettingsStorage.swift */; };
+		923329692972060500776599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 923329682972060500776599 /* GoogleService-Info.plist */; };
 		925D068428D7649100121931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068328D7649100121931 /* AppDelegate.swift */; };
 		925D068628D7649100121931 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068528D7649100121931 /* SceneDelegate.swift */; };
 		925D068828D7649100121931 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068728D7649100121931 /* TabBarViewController.swift */; };
@@ -36,6 +37,7 @@
 		9229ACBA29047DB300874A93 /* LessonModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModalViewController.swift; sourceTree = "<group>"; };
 		9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeTableViewController.swift; sourceTree = "<group>"; };
 		9229ACBE2909E70800874A93 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
+		923329682972060500776599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		925D068028D7649100121931 /* GuapTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuapTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		925D068328D7649100121931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		925D068528D7649100121931 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		925D067728D7649100121931 = {
 			isa = PBXGroup;
 			children = (
+				923329682972060500776599 /* GoogleService-Info.plist */,
 				925D068228D7649100121931 /* GuapTimeTable */,
 				925D068128D7649100121931 /* Products */,
 				220037F0542C482146570DA7 /* Pods */,
@@ -230,6 +233,7 @@
 			files = (
 				92D41FC328F471CD006F4289 /* Launch Screen.storyboard in Resources */,
 				925D068D28D7649200121931 /* Assets.xcassets in Resources */,
+				923329692972060500776599 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
