@@ -14,6 +14,8 @@
 		9229ACBD2907E90000874A93 /* CustomTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */; };
 		9229ACBF2909E70800874A93 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229ACBE2909E70800874A93 /* SettingsStorage.swift */; };
 		923329692972060500776599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 923329682972060500776599 /* GoogleService-Info.plist */; };
+		9233296B2973495F00776599 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9233296A2973495F00776599 /* FirebaseAPI.swift */; };
+		9233296D297378F200776599 /* FirestoreLessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9233296C297378F200776599 /* FirestoreLessonModel.swift */; };
 		925D068428D7649100121931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068328D7649100121931 /* AppDelegate.swift */; };
 		925D068628D7649100121931 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068528D7649100121931 /* SceneDelegate.swift */; };
 		925D068828D7649100121931 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068728D7649100121931 /* TabBarViewController.swift */; };
@@ -38,6 +40,8 @@
 		9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeTableViewController.swift; sourceTree = "<group>"; };
 		9229ACBE2909E70800874A93 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		923329682972060500776599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9233296A2973495F00776599 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		9233296C297378F200776599 /* FirestoreLessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreLessonModel.swift; sourceTree = "<group>"; };
 		925D068028D7649100121931 /* GuapTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuapTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		925D068328D7649100121931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		925D068528D7649100121931 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 			children = (
 				92D41FB728F05120006F4289 /* SelectQueryModels.swift */,
 				92D41FBA28F08423006F4289 /* TimeTableModels.swift */,
+				9233296C297378F200776599 /* FirestoreLessonModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 			children = (
 				92D41FBD28F45891006F4289 /* RequestModule.swift */,
 				9229ACBE2909E70800874A93 /* SettingsStorage.swift */,
+				9233296A2973495F00776599 /* FirebaseAPI.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9229ACB9290414C800874A93 /* TableHeaderView.swift in Sources */,
+				9233296D297378F200776599 /* FirestoreLessonModel.swift in Sources */,
 				92D41FC128F459D0006F4289 /* StringExtensions.swift in Sources */,
 				92D41FC628F47887006F4289 /* SettingsViewController.swift in Sources */,
 				925D068828D7649100121931 /* TabBarViewController.swift in Sources */,
@@ -315,6 +322,7 @@
 				9262F09328F7696500A35604 /* LessonCell.swift in Sources */,
 				92DAE8F128F9579100EE7C27 /* DeadLineViewController.swift in Sources */,
 				925D068628D7649100121931 /* SceneDelegate.swift in Sources */,
+				9233296B2973495F00776599 /* FirebaseAPI.swift in Sources */,
 				9229ACB728FB264800874A93 /* EmptyDataCell.swift in Sources */,
 				92D41FB828F05120006F4289 /* SelectQueryModels.swift in Sources */,
 				92D41FBB28F08423006F4289 /* TimeTableModels.swift in Sources */,
