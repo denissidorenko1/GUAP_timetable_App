@@ -24,6 +24,7 @@ struct Lesson {
     let building: String
     let room: String?
     let weekType: WeekType
+    var weekDay: String? // добавлен день недели в пару чтобы сортировать ответы от firestore
 }
 
 struct Day {

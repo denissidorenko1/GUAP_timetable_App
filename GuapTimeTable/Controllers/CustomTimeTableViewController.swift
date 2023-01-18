@@ -7,20 +7,32 @@
 
 import Foundation
 import UIKit
-import FirebaseDatabase
+import FirebaseFirestore
 
 final class CustomTimeTableView: UIViewController {
-
     private var customTimeTable: Week?
+    var dat: [QueryDocumentSnapshot]?
     private var customTimeTableTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         // пока удалим пустую ячейку, случаи пустого расписания обработаем позже
         // регистрация пустой ячейки
-//        table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier)
+        table.register(EmptyDataCell.self, forCellReuseIdentifier: EmptyDataCell.identifier)
         // регистрация ячейки с данными
         table.register(LessonCell.self, forCellReuseIdentifier: LessonCell.identifier)
         return table
     }()
+
+    private func loadFirebase() {
+        FirebaseApi.shared.getTimeTableFromFirebase(nil) { timeTable in
+//            self.dat = timeTable
+            self.customTimeTable = timeTable
+            DispatchQueue.main.async {
+                self.customTimeTableTableView.reloadData()
+//                self.customTimeTableTableView.reloadSections(IndexSet.init(integer: 0), with: UITableView.RowAnimation.automatic)
+            }
+
+        }
+    }
 
     override func loadView() {
         super.loadView()
@@ -30,8 +42,7 @@ final class CustomTimeTableView: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addNewLessonButton))
         navigationItem.rightBarButtonItem?.tintColor = .label
-        
-        
+        loadFirebase()
     }
 
     override func viewDidLoad() {
@@ -86,18 +97,22 @@ extension CustomTimeTableView: UITableViewDataSource {
             Responding to user- or table-initiated updates that require changes to the underlying data.
      */
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Тест"
+        return self.customTimeTable?.days[section].dayTitle ?? "Ошибка"
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = customTimeTableTableView.dequeueReusableCell(
-            withIdentifier: LessonCell.identifier) as? LessonCell else {
+        guard let cell = customTimeTableTableView.dequeueReusableCell(withIdentifier: LessonCell.identifier) as? LessonCell else {
             return UITableViewCell()
         }
+        cell.setData(timeTable: self.customTimeTable, indexPath: indexPath)
         return cell
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.customTimeTable?.days.count ?? 0
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.customTimeTable?.days[section].lessons.count ?? 0
     }
 }

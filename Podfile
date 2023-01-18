@@ -7,7 +7,9 @@ target 'GuapTimeTable' do
 	pod 'SwiftSoup'
 	pod 'Firebase'
 	pod 'Firebase/Database'
-
+	pod 'Firebase/Core'
+	pod 'Firebase/Firestore'
+	pod 'FirebaseFirestoreSwift'
   # Pods for GuapTimeTable
 
 end
