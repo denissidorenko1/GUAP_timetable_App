@@ -16,13 +16,13 @@ protocol FirebaseAPIProtocol {
 class FirebaseApi: FirebaseAPIProtocol {
     let database = Firestore.firestore()
     static let shared = FirebaseApi()
-    
+
     private func convertDocumentToWeekFormat(queryDocuments: [FirestoreLesson]) -> Week {
         var lessons: [Lesson] = []
         var days: Set<String> = []
         var dayStorage: [Day] = []
-        
-        //FIXME: вынести в отдельную функцию
+
+        // FIXME: вынести в отдельную функцию
         for queryDocument in queryDocuments {
             var weekType: WeekType = .both // можно красивей сделать
             switch queryDocument.weekType {
@@ -44,7 +44,7 @@ class FirebaseApi: FirebaseAPIProtocol {
         dayStorage.sort { (lhs: Day, rhs: Day) -> Bool in
             return lhs.dayTitle < rhs.dayTitle
         }
-        
+
         for dayTitle in days {
             let day = Day(dayTitle: dayTitle, lessons: lessons.filter { $0.weekDay == dayTitle })
             dayStorage.append(day)
@@ -52,13 +52,14 @@ class FirebaseApi: FirebaseAPIProtocol {
         // FIXME: разбивать на разные типы недели, сейчас используется для теста
         return Week(days: dayStorage, currentWeekType: .both)
     }
-    
+
     public func getTimeTableFromFirebase(_ group: String?, completionHandler: @escaping (Week) -> Void) {
         // TODO: убрать привязку к тестовой группе, добавить возможность выбирать расписание для группы
         let docRef = self.database.collection("/groups/4230M/Lessons")
         var lessonsDocs: [FirestoreLesson] = []
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
+                // TODO: перенести обработку ошибок в UI слой
                 print(error!.localizedDescription)
                 return
             }
@@ -70,7 +71,7 @@ class FirebaseApi: FirebaseAPIProtocol {
                     print(error.localizedDescription)
                 }
             }
-            
+
             let week = self.convertDocumentToWeekFormat(queryDocuments: lessonsDocs)
             completionHandler(week)
         }

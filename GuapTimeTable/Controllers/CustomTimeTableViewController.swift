@@ -24,11 +24,9 @@ final class CustomTimeTableView: UIViewController {
 
     private func loadFirebase() {
         FirebaseApi.shared.getTimeTableFromFirebase(nil) { timeTable in
-//            self.dat = timeTable
             self.customTimeTable = timeTable
             DispatchQueue.main.async {
                 self.customTimeTableTableView.reloadData()
-//                self.customTimeTableTableView.reloadSections(IndexSet.init(integer: 0), with: UITableView.RowAnimation.automatic)
             }
 
         }
@@ -59,6 +57,7 @@ final class CustomTimeTableView: UIViewController {
 
     @objc func addNewLessonButton() {
         // добавить переход на экран заполнения расписания
+        show(AddLessonViewController(), sender: nil)
     }
 }
 
