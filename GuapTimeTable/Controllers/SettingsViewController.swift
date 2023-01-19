@@ -78,8 +78,6 @@ class SettingsViewController: UIViewController {
     }
 
     func setupPicker() {
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
         groupSettingGroup.inputView = picker
         let toolBar = UIToolbar()
         toolBar.sizeToFit()

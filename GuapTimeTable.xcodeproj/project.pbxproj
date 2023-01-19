@@ -16,6 +16,9 @@
 		923329692972060500776599 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 923329682972060500776599 /* GoogleService-Info.plist */; };
 		9233296B2973495F00776599 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9233296A2973495F00776599 /* FirebaseAPI.swift */; };
 		9233296D297378F200776599 /* FirestoreLessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9233296C297378F200776599 /* FirestoreLessonModel.swift */; };
+		9233296F2978959000776599 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9233296E2978959000776599 /* AddLessonViewController.swift */; };
+		92332971297996E800776599 /* LessonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92332970297996E800776599 /* LessonPickerView.swift */; };
+		923329732979AC0600776599 /* LessonTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923329722979AC0600776599 /* LessonTextFieldView.swift */; };
 		925D068428D7649100121931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068328D7649100121931 /* AppDelegate.swift */; };
 		925D068628D7649100121931 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068528D7649100121931 /* SceneDelegate.swift */; };
 		925D068828D7649100121931 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D068728D7649100121931 /* TabBarViewController.swift */; };
@@ -42,6 +45,9 @@
 		923329682972060500776599 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9233296A2973495F00776599 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		9233296C297378F200776599 /* FirestoreLessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreLessonModel.swift; sourceTree = "<group>"; };
+		9233296E2978959000776599 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
+		92332970297996E800776599 /* LessonPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickerView.swift; sourceTree = "<group>"; };
+		923329722979AC0600776599 /* LessonTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTextFieldView.swift; sourceTree = "<group>"; };
 		925D068028D7649100121931 /* GuapTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuapTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		925D068328D7649100121931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		925D068528D7649100121931 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +104,7 @@
 				92D41FC728F478C9006F4289 /* TimeTableViewController.swift */,
 				9229ACBA29047DB300874A93 /* LessonModalViewController.swift */,
 				9229ACBC2907E90000874A93 /* CustomTimeTableViewController.swift */,
+				9233296E2978959000776599 /* AddLessonViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -169,6 +176,8 @@
 		92D41FC428F4766B006F4289 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				92332970297996E800776599 /* LessonPickerView.swift */,
+				923329722979AC0600776599 /* LessonTextFieldView.swift */,
 				9262F09228F7696500A35604 /* LessonCell.swift */,
 				9229ACB628FB264800874A93 /* EmptyDataCell.swift */,
 				9229ACB8290414C800874A93 /* TableHeaderView.swift */,
@@ -314,6 +323,7 @@
 				9233296D297378F200776599 /* FirestoreLessonModel.swift in Sources */,
 				92D41FC128F459D0006F4289 /* StringExtensions.swift in Sources */,
 				92D41FC628F47887006F4289 /* SettingsViewController.swift in Sources */,
+				92332971297996E800776599 /* LessonPickerView.swift in Sources */,
 				925D068828D7649100121931 /* TabBarViewController.swift in Sources */,
 				9229ACBD2907E90000874A93 /* CustomTimeTableViewController.swift in Sources */,
 				9229ACBB29047DB300874A93 /* LessonModalViewController.swift in Sources */,
@@ -321,12 +331,14 @@
 				925D068428D7649100121931 /* AppDelegate.swift in Sources */,
 				9262F09328F7696500A35604 /* LessonCell.swift in Sources */,
 				92DAE8F128F9579100EE7C27 /* DeadLineViewController.swift in Sources */,
+				9233296F2978959000776599 /* AddLessonViewController.swift in Sources */,
 				925D068628D7649100121931 /* SceneDelegate.swift in Sources */,
 				9233296B2973495F00776599 /* FirebaseAPI.swift in Sources */,
 				9229ACB728FB264800874A93 /* EmptyDataCell.swift in Sources */,
 				92D41FB828F05120006F4289 /* SelectQueryModels.swift in Sources */,
 				92D41FBB28F08423006F4289 /* TimeTableModels.swift in Sources */,
 				92D41FBE28F45891006F4289 /* RequestModule.swift in Sources */,
+				923329732979AC0600776599 /* LessonTextFieldView.swift in Sources */,
 				92D41FC828F478C9006F4289 /* TimeTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
