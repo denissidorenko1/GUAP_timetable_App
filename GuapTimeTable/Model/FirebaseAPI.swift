@@ -16,40 +16,36 @@ protocol FirebaseAPIProtocol {
 class FirebaseApi: FirebaseAPIProtocol {
     let database = Firestore.firestore()
     static let shared = FirebaseApi()
+    private let weekDayNumbers = [
+        "Понедельник": 0,
+        "Вторник": 1,
+        "Среда": 2,
+        "Четверг": 3,
+        "Пятница": 4,
+        "Суббота": 5,
+        "Воскресенье": 6
+    ]
 
     private func convertDocumentToWeekFormat(queryDocuments: [FirestoreLesson]) -> Week {
         var lessons: [Lesson] = []
         var days: Set<String> = []
         var dayStorage: [Day] = []
 
-        // FIXME: вынести в отдельную функцию
         for queryDocument in queryDocuments {
-            var weekType: WeekType = .both // можно красивей сделать
-            switch queryDocument.weekType {
-            case "Красная":
-                weekType = .red
-            case "Синяя":
-                weekType = .blue
-            default:
-                weekType = .both
-            }
+            var weekType: WeekType = .both
+            if let temp = try? WeekType.stringToWeekType(text: queryDocument.weekType) {weekType = temp}
             days.insert(queryDocument.weekDay) // добавляем в множество дни недели, чтобы по ним разбить список всех занятий
-            let lesson = Lesson(title: queryDocument.title, startTime: queryDocument.startTime, endTime: queryDocument.endTime,
-                                lessonNumber: queryDocument.lessonNumber, teacher: queryDocument.teacher, lessonType: queryDocument.lessonType,
-                                groups: queryDocument.groups, building: queryDocument.building, room: queryDocument.room, weekType: weekType, weekDay: queryDocument.weekDay)
+            let lesson = Lesson(title: queryDocument.title, startTime: queryDocument.startTime,
+                endTime: queryDocument.endTime, lessonNumber: queryDocument.lessonNumber,
+                teacher: queryDocument.teacher, lessonType: queryDocument.lessonType,
+                groups: queryDocument.groups, building: queryDocument.building, room: queryDocument.room, weekType: weekType, weekDay: queryDocument.weekDay)
             lessons.append(lesson)
         }
-        // сортировка расписания по дням недели
-        // FIXME: протестировать работоспособность на всех днях недели
-        dayStorage.sort { (lhs: Day, rhs: Day) -> Bool in
-            return lhs.dayTitle < rhs.dayTitle
-        }
-
         for dayTitle in days {
             let day = Day(dayTitle: dayTitle, lessons: lessons.filter { $0.weekDay == dayTitle })
             dayStorage.append(day)
         }
-        // FIXME: разбивать на разные типы недели, сейчас используется для теста
+        dayStorage.sort(by: { (weekDayNumbers[$0.dayTitle] ?? 7) < (weekDayNumbers[$1.dayTitle] ?? 7) })
         return Week(days: dayStorage, currentWeekType: .both)
     }
 
