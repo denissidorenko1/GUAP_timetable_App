@@ -73,16 +73,18 @@ final class LessonCell: UITableViewCell {
 
     private func getLessonType(abbr: String?) -> String {
         switch abbr {
-        case "ЛР":
+        case let labWork where labWork == "ЛР" || labWork == "Лабораторная":
             return "Лабораторная работа"
-        case "ПР":
+        case let practice where practice == "ПР" || practice == "Практика":
             return "Практическая работа"
-        case "Л":
+        case let lecture where lecture=="Л" || lecture == "Лекция":
             return "Лекция"
-        case "КП":
+        case let termProject where termProject == "КП" || termProject == "Курсовой проект":
             return "Курсовой проект"
-        case "КР":
+        case let termWork where termWork == "КР" || termWork == "Курсовая работа" || termWork == "Курсовая":
             return "Курсовая работа"
+        case "Другое":
+            return "Другое"
         default:
             return "" // есть еще какой-то тип пар, вроде
         }

@@ -262,6 +262,23 @@ class AddLessonView: UIView {
         self.addSubview(lessonEndField)
     }
 
+    public func retrieveFieldValues() -> Lesson {
+        let title: String = self.subjectField.text!
+        let startTime: String? = self.lessonStartField.text
+        let endTime: String? = self.lessonEndField.text
+        let lessonNumber: String? = self.subjectNumberField.text
+        let teacher: String? = self.teacherField.text
+        let lessonType: String = self.subjectTypeField.text ?? "ПР"
+        let groups: [String] = self.groupField.text?.components(separatedBy: ", ") ?? []
+        let building: String = self.buildingField.text ?? "Нет"
+        let room: String? = self.roomField.text
+        var weekType: WeekType = .both
+        if let temp = try? WeekType.stringToWeekType(text: self.weekTypeField.text!) {weekType = temp}
+        let weekDay: String? = self.dayField.text
+        return Lesson(title: title, startTime: startTime, endTime: endTime, lessonNumber: lessonNumber, teacher: teacher, lessonType: lessonType, groups: groups,
+            building: building, room: room, weekType: weekType, weekDay: weekDay)
+    }
+
     func setDelegates() {
         dayField.delegate = delegate as? UITextFieldDelegate
         buildingField.delegate = delegate as? UITextFieldDelegate

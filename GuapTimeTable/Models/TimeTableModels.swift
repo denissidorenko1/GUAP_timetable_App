@@ -7,11 +7,30 @@
 
 import Foundation
 
-enum WeekType {
-    case red
-    case blue
-    case both
+enum WeekTypeErrors: Error {
+    case convertationError
 }
+enum WeekType: String {
+    case red = "Красная"
+    case blue = "Синяя"
+    case both = "Универсальная"
+
+    static public func stringToWeekType(text: String) throws -> WeekType {
+        switch text {
+        case WeekType.blue.rawValue:
+            return .blue
+        case WeekType.red.rawValue:
+            return .red
+        case WeekType.both.rawValue:
+            return .both
+        default:
+            print("Ошибка конвертации!")
+            throw WeekTypeErrors.convertationError
+        }
+    }
+
+}
+
 // Добавить типы занятия: лекции, практики, и тд
 struct Lesson {
     let title: String // название пары

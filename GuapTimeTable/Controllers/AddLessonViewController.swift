@@ -20,6 +20,8 @@ class AddLessonViewController: UIViewController {
         return toolBar
     }()
 
+    private var lessonView: AddLessonView?
+
     override func loadView() {
         super.loadView()
         picker.delegate = self
@@ -32,7 +34,8 @@ class AddLessonViewController: UIViewController {
     }
 
     @objc func saveData() {
-        // по нажатию отправлять данные на сервер
+        let lesson = lessonView!.retrieveFieldValues()
+        FirebaseApi.shared.addLessonToFireStore(lesson: lesson)
     }
 
     @objc func hidePicker() {
@@ -46,10 +49,15 @@ class AddLessonViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .label
     }
 
-    func addSubviewsToView() {
+    private func setLessonView() -> AddLessonView? {
+        self.lessonView = AddLessonView(frame: CGRect(x: 0, y: navigationController!.navigationBar.frame.height+50,
+            width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), parent: self)
+        return self.lessonView
+    }
+
+    private func addSubviewsToView() {
         // FIXME: исправить кривую работу при повороте экрана
-        view.addSubview(AddLessonView(frame: CGRect(x: 0, y: navigationController!.navigationBar.frame.height+50,
-            width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), parent: self))
+        view.addSubview(setLessonView()!)
         view.addSubview(picker)
     }
 

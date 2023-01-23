@@ -76,4 +76,18 @@ class FirebaseApi: FirebaseAPIProtocol {
             completionHandler(week)
         }
     }
+
+    public func addLessonToFireStore(lesson: Lesson) {
+        let doc = self.database.collection("/groups/4230M/Lessons")
+        let firestoreLessonFormat = FirestoreLesson(startTime: lesson.startTime ?? "err",
+            weekDay: lesson.weekDay ?? "err", title: lesson.title,
+            lessonNumber: lesson.lessonNumber ?? "err", weekType: lesson.weekType.rawValue,
+            endTime: lesson.endTime!, building: lesson.building, room: lesson.room ?? "err",
+            teacher: lesson.teacher ?? "err", groups: lesson.groups, lessonType: lesson.lessonType)
+        do {
+            try doc.addDocument(from: firestoreLessonFormat)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }

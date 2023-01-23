@@ -3,7 +3,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 // MARK: - FirestoreLesson
-struct FirestoreLesson: Decodable {
+struct FirestoreLesson: Codable {
 //    @DocumentID var id: String?
 
     let startTime: String
