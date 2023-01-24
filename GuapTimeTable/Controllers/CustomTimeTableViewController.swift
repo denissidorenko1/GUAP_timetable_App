@@ -9,9 +9,12 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 
-final class CustomTimeTableView: UIViewController {
+protocol UpdateableFromFireStore: AnyObject {
+    func updateFireStoreAfterChange()
+}
+
+final class CustomTimeTableView: UIViewController, UpdateableFromFireStore {
     private var customTimeTable: Week?
-    var dat: [QueryDocumentSnapshot]?
     private var customTimeTableTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         // пока удалим пустую ячейку, случаи пустого расписания обработаем позже
@@ -57,7 +60,16 @@ final class CustomTimeTableView: UIViewController {
 
     @objc func addNewLessonButton() {
         // добавить переход на экран заполнения расписания
-        show(AddLessonViewController(), sender: nil)
+        show(AddLessonViewController(sender: self), sender: nil)
+    }
+
+    func updateFireStoreAfterChange() {
+        FirebaseApi.shared.getTimeTableFromFirebase(nil) { timeTable in
+            self.customTimeTable = timeTable
+            DispatchQueue.main.async {
+                self.customTimeTableTableView.reloadData()
+            }
+        }
     }
 }
 
@@ -83,6 +95,16 @@ extension CustomTimeTableView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Удалить") { (_, _, completionHandler) in
+            FirebaseApi.shared.deleteLesson(id: self.customTimeTable?.days[indexPath.section].lessons[indexPath.row].id ?? "")
+            self.loadFirebase()
+            completionHandler(true)
+        }
+        action.backgroundColor = .systemRed
+        return UISwipeActionsConfiguration(actions: [action])
     }
 }
 

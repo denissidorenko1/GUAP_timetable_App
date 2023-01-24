@@ -10,6 +10,8 @@ import UIKit
 
 // TODO: разбить на слои контроллера и вью
 class AddLessonViewController: UIViewController {
+    weak private var delegate: UpdateableFromFireStore?
+
     private var picker: LessonPickerView = {
         let picker = LessonPickerView(data: [], frame: CGRect(x: 1000, y: 0, width: 0, height: 0))
         return picker
@@ -21,6 +23,11 @@ class AddLessonViewController: UIViewController {
     }()
 
     private var lessonView: AddLessonView?
+
+    convenience init(sender: UpdateableFromFireStore) {
+        self.init()
+        self.delegate = sender
+    }
 
     override func loadView() {
         super.loadView()
@@ -36,13 +43,16 @@ class AddLessonViewController: UIViewController {
     @objc func saveData() {
         let lesson = lessonView!.retrieveFieldValues()
         FirebaseApi.shared.addLessonToFireStore(lesson: lesson)
+        self.delegate?.updateFireStoreAfterChange()
+        navigationController?.popViewController(animated: true)
+
     }
 
     @objc func hidePicker() {
         view.endEditing(true)
     }
 
-    func setStyles() {
+    private func setStyles() {
         view.backgroundColor = .systemPink
         self.title = "Добавить новую пару"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -50,6 +60,7 @@ class AddLessonViewController: UIViewController {
     }
 
     private func setLessonView() -> AddLessonView? {
+        // FIXME: переписать это фрагмент
         self.lessonView = AddLessonView(frame: CGRect(x: 0, y: navigationController!.navigationBar.frame.height+50,
             width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), parent: self)
         return self.lessonView

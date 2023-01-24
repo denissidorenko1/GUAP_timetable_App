@@ -4,7 +4,8 @@ import FirebaseFirestoreSwift
 
 // MARK: - FirestoreLesson
 struct FirestoreLesson: Codable {
-//    @DocumentID var id: String?
+    // FIXME: по какой-то причине id документа не декодируется автоматически, назначаем вручную
+    var id: String?
 
     let startTime: String
     let weekDay: String

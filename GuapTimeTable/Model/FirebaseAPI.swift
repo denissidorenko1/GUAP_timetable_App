@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import SwiftUI
+import grpc
 protocol FirebaseAPIProtocol {
     func getTimeTableFromFirebase(_ group: String?, completionHandler: @escaping (Week) -> Void)
 }
@@ -35,7 +36,7 @@ class FirebaseApi: FirebaseAPIProtocol {
             var weekType: WeekType = .both
             if let temp = try? WeekType.stringToWeekType(text: queryDocument.weekType) {weekType = temp}
             days.insert(queryDocument.weekDay) // добавляем в множество дни недели, чтобы по ним разбить список всех занятий
-            let lesson = Lesson(title: queryDocument.title, startTime: queryDocument.startTime,
+            let lesson = Lesson(id: queryDocument.id, title: queryDocument.title, startTime: queryDocument.startTime,
                 endTime: queryDocument.endTime, lessonNumber: queryDocument.lessonNumber,
                 teacher: queryDocument.teacher, lessonType: queryDocument.lessonType,
                 groups: queryDocument.groups, building: queryDocument.building, room: queryDocument.room, weekType: weekType, weekDay: queryDocument.weekDay)
@@ -61,7 +62,9 @@ class FirebaseApi: FirebaseAPIProtocol {
             }
             for document in data {
                 do {
-                    let doc = try document.data(as: FirestoreLesson.self)
+                    var doc = try document.data(as: FirestoreLesson.self)
+                    // FIXME: ID документа не декодируется автоматически, исправь потом
+                    doc.id = document.documentID
                     lessonsDocs.append(doc)
                 } catch {
                     print(error.localizedDescription)
@@ -81,9 +84,19 @@ class FirebaseApi: FirebaseAPIProtocol {
             endTime: lesson.endTime!, building: lesson.building, room: lesson.room ?? "err",
             teacher: lesson.teacher ?? "err", groups: lesson.groups, lessonType: lesson.lessonType)
         do {
-            try doc.addDocument(from: firestoreLessonFormat)
+            _ = try doc.addDocument(from: firestoreLessonFormat)
         } catch let error {
             print(error.localizedDescription)
         }
     }
+
+    public func deleteLesson(id: String) {
+        self.database.collection("/groups/4230M/Lessons").document(id).delete { err in
+            if let err = err {
+                // TODO: перенести обработку ошибок в UI слой
+                print("Error removing document: \(err.localizedDescription)")
+            }
+        }
+    }
+
 }
