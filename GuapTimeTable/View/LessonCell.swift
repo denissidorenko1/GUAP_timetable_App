@@ -105,9 +105,11 @@ final class LessonCell: UITableViewCell {
             self.lessonNumber.textColor = .red
         case .blue:
             self.lessonNumber.textColor = .blue
+        case .both:
+            self.lessonNumber.textColor = .white
         default:
-            // ничего не делать, неделя универсальная
-            break
+            // ожидаем падение приложения, если передать что-то кроме существующих типов недель
+            fatalError()
         }
     }
 

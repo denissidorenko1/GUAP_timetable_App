@@ -14,8 +14,6 @@ enum WeekType: String {
     case red = "Красная"
     case blue = "Синяя"
     case both = "Универсальная"
-    // FIXME: некорректно отображаются цвета пар в кастомном расписании, изменяются после обновления.
-    // Убрать дублирующиеся обработки типов недели, привести к одному стандарту
     static public func stringToWeekType(text: String) throws -> WeekType {
         switch text {
         case WeekType.blue.rawValue:

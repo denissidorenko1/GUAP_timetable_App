@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-// TODO: разбить на слои контроллера и вью
 class AddLessonViewController: UIViewController {
     weak private var delegate: UpdateableFromFireStore?
 
