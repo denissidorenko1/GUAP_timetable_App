@@ -26,7 +26,7 @@ final class CustomTimeTableView: UIViewController, UpdateableFromFireStore {
     }()
 
     private func loadFirebase() {
-        FirebaseApi.shared.getTimeTableFromFirebase(nil) { timeTable in
+        FirebaseApi.shared.getLessons { timeTable in
             self.customTimeTable = timeTable
             DispatchQueue.main.async {
                 self.customTimeTableTableView.reloadData()
@@ -64,7 +64,7 @@ final class CustomTimeTableView: UIViewController, UpdateableFromFireStore {
     }
 
     func updateFireStoreAfterChange() {
-        FirebaseApi.shared.getTimeTableFromFirebase(nil) { timeTable in
+        FirebaseApi.shared.getLessons { timeTable in
             self.customTimeTable = timeTable
             DispatchQueue.main.async {
                 self.customTimeTableTableView.reloadData()

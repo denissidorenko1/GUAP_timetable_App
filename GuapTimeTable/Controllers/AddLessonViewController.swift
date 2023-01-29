@@ -41,7 +41,7 @@ class AddLessonViewController: UIViewController {
 
     @objc func saveData() {
         let lesson = lessonView!.retrieveFieldValues()
-        FirebaseApi.shared.addLessonToFireStore(lesson: lesson)
+        FirebaseApi.shared.addLesson(lesson: lesson)
         self.delegate?.updateFireStoreAfterChange()
         navigationController?.popViewController(animated: true)
 
