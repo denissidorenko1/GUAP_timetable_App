@@ -26,6 +26,7 @@ class LessonPickerView: UIPickerView {
 
     override init(frame: CGRect) {
         self.data = ["ОШИБКА!"]
+        Logger.log(type: .warning, message: "Использован инициализатор без установки значения")
         super.init(frame: frame)
 
     }

@@ -61,8 +61,7 @@ final class FirebaseApi: FirebaseTimetableAPIProtocol {
         var lessonsDocs: [FirestoreLesson] = []
         docRef.getDocuments { snapshot, error in
             guard let documents = snapshot?.documents, error == nil else {
-                // TODO: перенести обработку ошибок в UI слой
-                print(error!.localizedDescription)
+                Logger.log(type: .error, message: "Ошибка: \(error!.localizedDescription)")
                 return
             }
             for document in documents {
@@ -72,7 +71,7 @@ final class FirebaseApi: FirebaseTimetableAPIProtocol {
                     doc.id = document.documentID
                     lessonsDocs.append(doc)
                 } catch {
-                    print(error.localizedDescription)
+                    Logger.log(type: .error, message: "Ошибка получения: \(error.localizedDescription)")
                 }
             }
             let week = self.convertDocumentToWeekFormat(queryDocuments: lessonsDocs)
@@ -91,21 +90,21 @@ final class FirebaseApi: FirebaseTimetableAPIProtocol {
             // TODO: addDocument возвращает docRef с необходимыми парами, значит, после добавления можно избежать вызова getLessons чтобы обновить расписание
             _ = try doc.addDocument(from: firestoreLessonFormat)
         } catch let error {
-            print(error.localizedDescription)
+            Logger.log(type: .error, message: "Ошибка добавления: \(error.localizedDescription)")
         }
     }
 
     public func deleteLesson(_ group: String="4230M", id: String) {
         self.database.collection("/groups/\(group)/Lessons").document(id).delete { err in
             if let err = err {
-                // TODO: перенести обработку ошибок в UI слой
-                print("Error removing document: \(err.localizedDescription)")
+                Logger.log(type: .error, message: "Ошибка удаления: \(err.localizedDescription)")
             }
         }
     }
 
     // метод проверки группы на существование. Должен вызываться при попытке ввести номер группы
     public func checkIfExists(group: String) {
+        Logger.log(type: .fatal, message: "Функция не реализована")
         fatalError("Не реализовано")
     }
 

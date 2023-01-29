@@ -131,6 +131,7 @@ final class LessonModalViewController: UIViewController {
         case "КР":
             return "Курсовая работа"
         default:
+            Logger.log(type: .warning, message: "Какой-то другой тип пар использован")
             return "" // есть еще какой-то тип пар, вроде
         }
     }

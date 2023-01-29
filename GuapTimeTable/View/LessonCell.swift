@@ -86,6 +86,7 @@ final class LessonCell: UITableViewCell {
         case "Другое":
             return "Другое"
         default:
+            Logger.log(type: .warning, message: "Несуществующий тип занятий")
             return "" // есть еще какой-то тип пар, вроде
         }
     }
@@ -109,6 +110,7 @@ final class LessonCell: UITableViewCell {
             self.lessonNumber.textColor = .white
         default:
             // ожидаем падение приложения, если передать что-то кроме существующих типов недель
+            Logger.log(type: .fatal, message: "Невозможный тип недели")
             fatalError()
         }
     }

@@ -23,6 +23,7 @@ class LessonTextFieldView: UITextField {
 
     override init(frame: CGRect) {
         self.associatedValue = ["ОШИБКА!"]
+        Logger.log(type: .warning, message: "Использован инициализатор без установки значения")
         super.init(frame: frame)
 
     }

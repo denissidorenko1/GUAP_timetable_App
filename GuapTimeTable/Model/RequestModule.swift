@@ -120,7 +120,7 @@ class RequestModule {
                 } catch Exception.Error(let type, let message) {
                     print(type, message)
                 } catch {
-                    print("error parsing timetable")
+                    Logger.log(type: .error, message: "Ошибка парсинга расписания")
                 }
             }
 
@@ -156,15 +156,16 @@ class RequestModule {
                             case 3:
                                 rooms.roomList.append(Room(id: value, room: text))
                             default:
+                                Logger.log(type: .fatal, message: "default случай")
                                 fatalError("Default")
                             }
                             }
                         }
                     completion(SelectData(groups: groups, rooms: rooms, teachers: teachers, buildings: buildings))
                 } catch Exception.Error(let type, let message) {
-                    print(type, message)
+                    Logger.log(type: .error, message: "\(type) \(message)")
                 } catch {
-                    print("unknown error")
+                    Logger.log(type: .error, message: "Неизвестная ошибка")
                 }
             }
         }.resume()

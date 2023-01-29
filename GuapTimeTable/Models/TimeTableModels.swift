@@ -23,7 +23,7 @@ enum WeekType: String {
         case let universal where universal == WeekType.both.rawValue || universal == "Общая":
             return .both
         default:
-            print("Ошибка конвертации! Текст \(text)")
+            Logger.log(type: .error, message: "Ошибка конвертации! Текст \(text)")
             throw WeekTypeErrors.convertationError
         }
     }
